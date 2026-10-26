@@ -119,25 +119,18 @@ button {
   scroll-margin-top: var(--header-height);
 }
 
-.section-index,
-.placeholder-label {
-  margin: 0;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
 .panel-content {
   width: 100%;
+}
+
+.panel-slogan .panel-content {
   margin-top: auto;
 }
 
 .panel h1,
 .panel h2 {
   max-width: 100%;
-  margin: 14px 0 0;
+  margin: 0;
   overflow-wrap: anywhere;
   font-size: clamp(58px, 18vw, 112px);
   font-weight: 800;
@@ -174,7 +167,7 @@ button {
 }
 
 .show-heading {
-  margin: clamp(90px, 22svh, 180px) 0 72px;
+  margin: 0 0 72px;
 }
 
 .show-category + .show-category {
@@ -376,7 +369,7 @@ button {
 }
 
 .photos-heading {
-  margin: clamp(90px, 18svh, 160px) 0 56px;
+  margin: 0 0 56px;
 }
 
 .photo-carousel {
