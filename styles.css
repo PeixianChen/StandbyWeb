@@ -10,6 +10,7 @@
   --header-height: 64px;
   --header-offset: calc(var(--header-height) + env(safe-area-inset-top));
   --page-padding: clamp(16px, 5vw, 28px);
+  --show-control-gutter: clamp(42px, 12vw, 56px);
   --background: #000000;
   --foreground: #ffffff;
   --line: rgba(255, 255, 255, 0.24);
@@ -203,14 +204,17 @@ button {
 
 .show-scroll-area {
   position: relative;
+  width: calc(100% + var(--page-padding) * 2);
+  margin-left: calc(var(--page-padding) * -1);
+  padding: 0 var(--show-control-gutter);
 }
 
 .scroll-controls {
   position: absolute;
   z-index: 3;
   top: 43%;
-  right: calc(var(--page-padding) * -1 + 8px);
-  left: calc(var(--page-padding) * -1 + 8px);
+  right: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   pointer-events: none;
@@ -222,13 +226,13 @@ button {
 }
 
 .scroll-controls button {
-  width: 34px;
+  width: var(--show-control-gutter);
   height: 52px;
   padding: 0;
   display: grid;
   place-items: center;
   color: var(--foreground);
-  background: transparent;
+  background: var(--background);
   border: 0;
   font-size: 40px;
   font-weight: 300;
@@ -250,9 +254,8 @@ button {
 }
 
 .show-scroller {
-  width: calc(100% + var(--page-padding) * 2);
-  margin-left: calc(var(--page-padding) * -1);
-  padding: 8px var(--page-padding) 12px;
+  width: 100%;
+  padding: 8px 0 12px;
   display: flex;
   align-items: flex-start;
   gap: 14px;
@@ -269,7 +272,7 @@ button {
 
 .show-card {
   display: block;
-  width: calc(100vw - var(--page-padding) * 2 - 28px);
+  width: 100%;
   flex: 0 0 auto;
   align-self: flex-start;
   padding: 0;
@@ -283,38 +286,38 @@ button {
 }
 
 .show-scroller[data-count="1"] .show-card {
-  width: calc(100vw - var(--page-padding) * 2);
+  width: 100%;
 }
 
 @media (max-width: 767px) {
   .show-category[data-category="now-playing"] .show-card {
-    width: calc(100vw - var(--page-padding) * 2);
+    width: 100%;
   }
 
   .show-category[data-category="previous-shows"] .show-card {
-    width: calc((100vw - var(--page-padding) * 2 - 14px) / 2);
+    width: calc((100% - 14px) / 2);
   }
 
   .show-category[data-category="previous-shows"] .show-scroller[data-count="1"] .show-card {
-    width: calc(100vw - var(--page-padding) * 2);
+    width: 100%;
   }
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
   .show-category[data-category="now-playing"] .show-card {
-    width: calc((100vw - var(--page-padding) * 2 - 14px) / 2);
+    width: calc((100% - 14px) / 2);
   }
 
   .show-category[data-category="now-playing"] .show-scroller[data-count="1"] .show-card {
-    width: calc(100vw - var(--page-padding) * 2);
+    width: 100%;
   }
 
   .show-category[data-category="previous-shows"] .show-card {
-    width: calc((100vw - var(--page-padding) * 2 - 28px) / 3);
+    width: calc((100% - 28px) / 3);
   }
 
   .show-category[data-category="previous-shows"] .show-scroller[data-count="2"] .show-card {
-    width: calc((100vw - var(--page-padding) * 2 - 14px) / 2);
+    width: calc((100% - 14px) / 2);
   }
 }
 
