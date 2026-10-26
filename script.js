@@ -46,26 +46,22 @@ if ("IntersectionObserver" in window) {
   linkedSections.forEach((section) => sectionObserver.observe(section));
 }
 
-async function fetchText(url) {
-  const response = await fetch(url, { cache: "no-cache" });
-  if (!response.ok) throw new Error(`无法读取 ${url}`);
-  return response.text();
-}
+function readShow(category, entry) {
+  const requiredFields = ["folder", "photo", "actor", "title", "description"];
+  const invalidField = requiredFields.find(
+    (field) => typeof entry?.[field] !== "string" || entry[field].trim() === "",
+  );
 
-async function readShow(category, entry) {
-  if (!entry?.folder || !entry?.photo) throw new Error(`${category} 中存在无效索引项。`);
+  if (invalidField) {
+    throw new Error(`${category} 中存在无效索引项：${invalidField} 缺失或为空。`);
+  }
+
   const folder = `./shows/${category}/${encodeURIComponent(entry.folder)}`;
 
-  const [actor, title, description] = await Promise.all([
-    fetchText(`${folder}/actor.txt`),
-    fetchText(`${folder}/title.txt`),
-    fetchText(`${folder}/description.txt`),
-  ]);
-
   return {
-    actor: actor.trim(),
-    title: title.trim(),
-    description: description.trim(),
+    actor: entry.actor.trim(),
+    title: entry.title.trim(),
+    description: entry.description.trim(),
     photo: `${folder}/${encodeURIComponent(entry.photo)}`,
   };
 }
@@ -78,14 +74,13 @@ async function readCategory(category) {
     throw new Error(`shows/index.json 中缺少 ${category} 栏目。`);
   }
 
-  const results = await Promise.allSettled(entries.map((entry) => readShow(category, entry)));
   const shows = [];
 
-  results.forEach((result, position) => {
-    if (result.status === "fulfilled") {
-      shows.push(result.value);
-    } else {
-      console.error(`跳过无法读取的演出：${entries[position]?.folder ?? position}`, result.reason);
+  entries.forEach((entry, position) => {
+    try {
+      shows.push(readShow(category, entry));
+    } catch (error) {
+      console.error(`跳过无效的演出：${entry?.folder ?? position}`, error);
     }
   });
 

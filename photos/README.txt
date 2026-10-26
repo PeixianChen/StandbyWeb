@@ -8,7 +8,8 @@
 
 3. 支持 webp、jpg、jpeg、png、svg 格式。
 
-4. 更新照片后，在项目根目录运行：
-   node scripts/generate-photos-index.mjs
+4. 本地预览前，在项目根目录运行：
+   node scripts/generate-indexes.mjs
 
-5. 命令会生成 photos/index.json。部署网站时需要将照片和 index.json 一起上传。
+5. 命令会检查照片命名和重复编号，并生成 photos/index.json。
+   推送到 GitHub 后，GitHub Actions 也会自动检查并生成线上索引。

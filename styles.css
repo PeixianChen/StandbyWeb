@@ -8,6 +8,7 @@
 
 :root {
   --header-height: 64px;
+  --header-offset: calc(var(--header-height) + env(safe-area-inset-top));
   --page-padding: clamp(16px, 5vw, 28px);
   --background: #000000;
   --foreground: #ffffff;
@@ -23,7 +24,7 @@
 html {
   width: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: var(--header-height);
+  scroll-padding-top: var(--header-offset);
   overflow-x: hidden;
 }
 
@@ -52,7 +53,7 @@ button {
   top: 0;
   z-index: 100;
   width: 100%;
-  height: calc(var(--header-height) + env(safe-area-inset-top));
+  height: var(--header-offset);
   padding: env(safe-area-inset-top) var(--page-padding) 0;
   display: flex;
   align-items: center;
@@ -110,12 +111,12 @@ button {
 .panel {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - var(--header-height));
-  min-height: max(620px, calc(100svh - var(--header-height)));
+  min-height: calc(100vh - var(--header-offset));
+  min-height: max(620px, calc(100svh - var(--header-offset)));
   padding: 22px var(--page-padding) max(36px, env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
-  scroll-margin-top: var(--header-height);
+  scroll-margin-top: var(--header-offset);
 }
 
 .panel-content {
@@ -124,6 +125,7 @@ button {
 
 .panel-slogan .panel-content {
   margin-top: auto;
+  margin-bottom: clamp(48px, 8vh, 96px);
 }
 
 .panel h1,
@@ -456,8 +458,8 @@ button {
 .show-dialog {
   width: calc(100% - 24px);
   max-width: 980px;
-  max-height: calc(100svh - var(--header-height) - 28px);
-  margin: calc(var(--header-height) + 14px) auto auto;
+  max-height: calc(100svh - var(--header-offset) - 28px);
+  margin: calc(var(--header-offset) + 14px) auto auto;
   padding: 0;
   overflow: visible;
   color: var(--foreground);
@@ -553,6 +555,32 @@ body:has(.show-dialog[open]) {
   overflow: hidden;
 }
 
+@media (max-width: 600px) {
+  .show-dialog {
+    overflow: hidden;
+  }
+
+  .dialog-layout {
+    height: calc(100svh - var(--header-offset) - 28px);
+    max-height: 720px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(120px, 42%) minmax(0, 1fr);
+  }
+
+  .dialog-image-wrap {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .dialog-copy {
+    padding: 18px 16px;
+  }
+
+  .dialog-label {
+    margin-bottom: 18px;
+  }
+}
+
 @media (min-width: 768px) {
   :root {
     --header-height: 76px;
@@ -572,7 +600,7 @@ body:has(.show-dialog[open]) {
   }
 
   .panel {
-    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100vh - var(--header-offset));
     padding-top: 30px;
   }
 

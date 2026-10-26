@@ -2,37 +2,61 @@
   "now-playing": [
     {
       "folder": "000_林野、周舟",
-      "photo": "photo.jpg"
+      "photo": "photo.jpg",
+      "actor": "林野、周舟",
+      "title": "今晚请保持站立",
+      "description": "一场从观众入场时就已经开始的现场喜剧。\n\n两位演员用不断变化的身份与视角，讨论我们如何在日常生活里寻找自己的位置。演出约 75 分钟。"
     },
     {
       "folder": "001_赵可、阿满",
-      "photo": "photo.jpg"
+      "photo": "photo.jpg",
+      "actor": "赵可、阿满",
+      "title": "不合时宜俱乐部",
+      "description": "欢迎来到一个永远说错话、永远晚一步的俱乐部。\n\n这是一场由即兴、漫才与单口组成的拼盘演出。每场都会根据现场观众的选择产生不同走向。"
     },
     {
       "folder": "002_苏晴",
-      "photo": "photo.jpg"
+      "photo": "photo.jpg",
+      "actor": "苏晴",
+      "title": "正常人的使用说明",
+      "description": "一场关于“如何表现得像个正常人”的单口喜剧。\n\n苏晴从社交、工作与家庭生活出发，重新检查那些没人解释、但所有人似乎都默认遵守的规则。"
     },
     {
       "folder": "003_陆离、石头",
-      "photo": "photo.jpg"
+      "photo": "photo.jpg",
+      "actor": "陆离、石头",
+      "title": "请勿回答",
+      "description": "两位演员不断向彼此提出无法回答的问题。\n\n这场漫才从一个简单的是非题开始，逐渐变成关于选择、记忆与误解的荒诞辩论。"
     }
   ],
   "previous-shows": [
     {
       "folder": "000_陈一、王北",
-      "photo": "photo.jpg"
+      "photo": "photo.jpg",
+      "actor": "陈一、王北",
+      "title": "凌晨三点的好消息",
+      "description": "发生在一间二十四小时便利店里的双人喜剧。\n\n两个失眠的人交换彼此最荒唐的消息，在天亮以前尝试证明生活仍然值得期待。首演于 2025 年冬季。"
     },
     {
       "folder": "001_小北",
-      "photo": "photo.jpg"
+      "photo": "photo.jpg",
+      "actor": "小北",
+      "title": "一个人的散场",
+      "description": "一把麦克风、一张空椅子，以及一个不太擅长告别的人。\n\n演员从生活中真实发生的离别出发，用克制的幽默讲述那些没有机会好好结束的关系。"
     },
     {
       "folder": "002_安然",
-      "photo": "photo.jpg"
+      "photo": "photo.jpg",
+      "actor": "安然",
+      "title": "明天再说",
+      "description": "献给所有把今天的问题留给明天的人。\n\n安然用轻松的叙述拆解拖延背后的期待与焦虑，并尝试在演出结束前完成一份拖了三年的计划。"
     },
     {
       "folder": "003_马冬",
-      "photo": "photo.jpg"
+      "photo": "photo.jpg",
+      "actor": "马冬",
+      "title": "我的邻居不是人",
+      "description": "一场从深夜噪音投诉开始的悬疑单口喜剧。\n\n当马冬决定敲开隔壁房门，他发现自己对邻居的全部判断，可能都来自一面隔音很差的墙。"
     }
   ]
 }

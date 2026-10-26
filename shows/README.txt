@@ -25,10 +25,11 @@
 6. 删除或调整顺序
    删除文件夹即可删除演出。修改下划线前的三位数字即可调整顺序。
 
-7. 更新文件夹后，在项目根目录运行：
-   node scripts/generate-shows-index.mjs
-   命令会扫描文件夹、检查命名并生成 shows/index.json。
+7. 本地预览前，在项目根目录运行：
+   node scripts/generate-indexes.mjs
+   命令会扫描文件夹，检查命名、缺失文件、空白文字和重复图片，并生成索引。
    随后刷新网页即可看到更新，不需要修改 index.html、styles.css 或 script.js。
 
-8. 部署网站前也必须运行一次上述命令，并将生成的 shows/index.json 一起上传。
+8. 推送到 GitHub 后，GitHub Actions 会自动执行同一套检查并生成线上索引。
+   资料不符合规则时会停止部署，并在 Actions 日志中指出具体文件。
    网页必须通过网站服务器访问，不能直接双击 index.html 以 file:// 方式预览。

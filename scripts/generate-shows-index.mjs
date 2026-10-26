@@ -1,4 +1,4 @@
-import { readdir, writeFile } from "node:fs/promises";
+import { readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -7,6 +7,7 @@ const showsRoot = join(projectRoot, "shows");
 const categories = ["now-playing", "previous-shows"];
 const folderPattern = /^(\d{3})_(.+)$/u;
 const imageFileNames = ["photo.webp", "photo.jpg", "photo.jpeg", "photo.png", "photo.svg"];
+const textFileNames = ["actor.txt", "title.txt", "description.txt"];
 const index = {};
 
 for (const category of categories) {
@@ -14,9 +15,6 @@ for (const category of categories) {
   const folders = [];
 
   for (const entry of entries.filter((item) => item.isDirectory())) {
-    const contents = await readdir(join(showsRoot, category, entry.name));
-    if (contents.length === 0) continue;
-
     const match = entry.name.match(folderPattern);
 
     if (!match) {
@@ -25,13 +23,44 @@ for (const category of categories) {
       );
     }
 
-    const photo = imageFileNames.find((fileName) => contents.includes(fileName));
-    if (!photo) throw new Error(`shows/${category}/${entry.name} 中缺少 photo 图片。`);
+    const folderPath = join(showsRoot, category, entry.name);
+    const contents = await readdir(folderPath);
+    if (contents.length === 0) {
+      throw new Error(`shows/${category}/${entry.name} 是空文件夹。`);
+    }
+
+    const photos = imageFileNames.filter((fileName) => contents.includes(fileName));
+    if (photos.length === 0) {
+      throw new Error(`shows/${category}/${entry.name} 中缺少 photo 图片。`);
+    }
+    if (photos.length > 1) {
+      throw new Error(
+        `shows/${category}/${entry.name} 中存在多张 photo 图片：${photos.join("、")}。`,
+      );
+    }
+
+    const missingTextFile = textFileNames.find((fileName) => !contents.includes(fileName));
+    if (missingTextFile) {
+      throw new Error(`shows/${category}/${entry.name} 中缺少 ${missingTextFile}。`);
+    }
+
+    const textValues = await Promise.all(
+      textFileNames.map(async (fileName) => {
+        const value = (await readFile(join(folderPath, fileName), "utf8")).trim();
+        if (!value) {
+          throw new Error(`shows/${category}/${entry.name}/${fileName} 不能为空。`);
+        }
+        return value;
+      }),
+    );
 
     folders.push({
       name: entry.name,
       order: Number(match[1]),
-      photo,
+      photo: photos[0],
+      actor: textValues[0],
+      title: textValues[1],
+      description: textValues[2],
     });
   }
 
@@ -48,6 +77,9 @@ for (const category of categories) {
   index[category] = folders.map((folder) => ({
     folder: folder.name,
     photo: folder.photo,
+    actor: folder.actor,
+    title: folder.title,
+    description: folder.description,
   }));
 }
 
