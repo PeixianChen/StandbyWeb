@@ -96,16 +96,6 @@ async function readCategory(category) {
   return shows;
 }
 
-function addMetaRow(list, label, value) {
-  const labelElement = document.createElement("span");
-  const valueElement = document.createElement("span");
-  labelElement.className = "show-meta-label";
-  valueElement.className = "show-meta-value";
-  labelElement.textContent = label;
-  valueElement.textContent = value;
-  list.append(labelElement, valueElement);
-}
-
 function openShowDialog(show) {
   dialogImage.src = show.photo;
   dialogImage.alt = `${show.title}演出图片`;
@@ -120,6 +110,8 @@ function createShowCard(show) {
   const imageWrap = document.createElement("span");
   const image = document.createElement("img");
   const meta = document.createElement("span");
+  const title = document.createElement("span");
+  const actor = document.createElement("span");
 
   card.className = "show-card";
   card.type = "button";
@@ -130,9 +122,12 @@ function createShowCard(show) {
   image.loading = "lazy";
   image.decoding = "async";
   meta.className = "show-card-meta";
+  title.className = "show-card-title";
+  actor.className = "show-card-actor";
+  title.textContent = show.title;
+  actor.textContent = show.actor;
 
-  addMetaRow(meta, "演员", show.actor);
-  addMetaRow(meta, "演出名称", show.title);
+  meta.append(title, actor);
   imageWrap.append(image);
   card.append(imageWrap, meta);
   card.addEventListener("click", () => openShowDialog(show));

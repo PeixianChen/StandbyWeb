@@ -11,7 +11,7 @@
   --page-padding: clamp(16px, 5vw, 28px);
   --background: #000000;
   --foreground: #ffffff;
-  --line: rgba(255, 255, 255, 0.28);
+  --line: rgba(255, 255, 255, 0.24);
 }
 
 *,
@@ -59,7 +59,7 @@ button {
   justify-content: space-between;
   gap: 12px;
   background: rgba(0, 0, 0, 0.94);
-  border-bottom: 1px solid var(--foreground);
+  border-bottom: 1px solid var(--line);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -69,7 +69,7 @@ button {
   font-size: 23px;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.03em;
 }
 
 .site-nav {
@@ -115,7 +115,6 @@ button {
   padding: 22px var(--page-padding) max(36px, env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid var(--foreground);
   scroll-margin-top: var(--header-height);
 }
 
@@ -132,10 +131,10 @@ button {
   max-width: 100%;
   margin: 0;
   overflow-wrap: anywhere;
-  font-size: clamp(58px, 18vw, 112px);
+  font-size: clamp(48px, 14vw, 96px);
   font-weight: 800;
-  line-height: 0.84;
-  letter-spacing: -0.085em;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
 }
 
 .placeholder-copy {
@@ -157,7 +156,7 @@ button {
 .panel-slogan h1 {
   max-width: 16ch;
   font-size: clamp(38px, 10vw, 112px);
-  line-height: 0.94;
+  line-height: 0.96;
   text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
 }
 
@@ -177,10 +176,10 @@ button {
 .category-heading {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--foreground);
+  border-bottom: 1px solid var(--line);
 }
 
 .category-heading h3,
@@ -191,7 +190,7 @@ button {
 .category-heading h3 {
   font-size: clamp(27px, 8vw, 48px);
   line-height: 1;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.035em;
 }
 
 .category-heading p {
@@ -221,28 +220,26 @@ button {
 }
 
 .scroll-controls button {
-  width: 38px;
-  height: 56px;
+  width: 34px;
+  height: 52px;
   padding: 0;
   display: grid;
   place-items: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  border-radius: 999px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-size: 31px;
+  color: var(--foreground);
+  background: transparent;
+  border: 0;
+  font-size: 40px;
   font-weight: 300;
   line-height: 1;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
   cursor: pointer;
   pointer-events: auto;
   transition: background 160ms ease, transform 160ms ease, opacity 160ms ease;
 }
 
 .scroll-controls button:hover:not(:disabled) {
-  background: var(--background);
-  transform: scale(1.06);
+  opacity: 0.68;
+  transform: scale(1.04);
 }
 
 .scroll-controls button:disabled {
@@ -318,9 +315,9 @@ button {
 
 .show-card-image {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3509 / 4962;
   overflow: hidden;
-  border: 1px solid var(--foreground);
+  border: 1px solid var(--line);
   background: var(--background);
 }
 
@@ -332,28 +329,24 @@ button {
 }
 
 .show-card-meta {
-  display: grid;
-  grid-template-columns: 62px minmax(0, 1fr);
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   margin: 12px 0 0;
-  font-size: 12px;
   line-height: 1.45;
 }
 
-.show-meta-label,
-.show-meta-value {
-  margin: 0;
-}
-
-.show-meta-label {
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.show-meta-value {
+.show-card-title {
   overflow-wrap: anywhere;
+  font-size: clamp(17px, 4.8vw, 24px);
   font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.show-card-actor {
+  overflow-wrap: anywhere;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
 }
 
 .shows-loading,
@@ -369,21 +362,21 @@ button {
 }
 
 .photos-heading {
-  margin: 0 0 56px;
+  margin: 0 0 72px;
 }
 
 .photo-carousel {
   position: relative;
-  width: 100%;
+  width: min(100%, 1100px);
+  margin: 0 auto;
 }
 
 .photo-viewport {
   width: 100%;
-  aspect-ratio: 4 / 5;
-  max-height: 72svh;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
   background: var(--background);
-  border: 1px solid var(--foreground);
+  border: 1px solid var(--line);
   touch-action: pan-y;
 }
 
@@ -415,17 +408,17 @@ button {
   position: absolute;
   z-index: 2;
   top: 50%;
-  width: 40px;
-  height: 58px;
+  width: 36px;
+  height: 54px;
   padding: 0;
   display: grid;
   place-items: center;
   color: var(--foreground);
-  background: rgba(0, 0, 0, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 999px;
-  font-size: 32px;
+  background: transparent;
+  border: 0;
+  font-size: 42px;
   line-height: 1;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
   cursor: pointer;
   transform: translateY(-50%);
 }
@@ -465,8 +458,8 @@ button {
   overflow: visible;
   color: var(--foreground);
   background: var(--background);
-  border: 1px solid var(--foreground);
-  box-shadow: 8px 8px 0 var(--foreground);
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.72);
 }
 
 .show-dialog::backdrop {
@@ -504,7 +497,7 @@ button {
 .dialog-image-wrap {
   min-width: 0;
   min-height: 0;
-  border-right: 1px solid var(--foreground);
+  border-right: 1px solid var(--line);
   background: var(--background);
 }
 
@@ -581,7 +574,7 @@ body:has(.show-dialog[open]) {
 
   .panel h1,
   .panel h2 {
-    font-size: clamp(96px, 13vw, 200px);
+    font-size: clamp(72px, 8vw, 120px);
   }
 
   .panel.panel-slogan {
@@ -590,11 +583,11 @@ body:has(.show-dialog[open]) {
   }
 
   .panel-slogan h1 {
-    font-size: clamp(38px, 10vw, 112px);
+    font-size: clamp(48px, 8vw, 128px);
   }
 
   .show-heading {
-    margin-bottom: 110px;
+    margin-bottom: 72px;
   }
 
   .show-category + .show-category {
@@ -625,10 +618,6 @@ body:has(.show-dialog[open]) {
     font-size: 16px;
   }
 
-  .photo-viewport {
-    aspect-ratio: 16 / 9;
-    max-height: 78svh;
-  }
 }
 
 @media (min-width: 1200px) {
