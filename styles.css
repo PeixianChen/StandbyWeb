@@ -250,7 +250,7 @@ button {
 .show-scroller {
   width: calc(100% + var(--page-padding) * 2);
   margin-left: calc(var(--page-padding) * -1);
-  padding: 22px var(--page-padding) 12px;
+  padding: 8px var(--page-padding) 12px;
   display: flex;
   gap: 14px;
   overflow-x: auto;
@@ -314,6 +314,7 @@ button {
 }
 
 .show-card-image {
+  display: block;
   width: 100%;
   aspect-ratio: 3509 / 4962;
   overflow: hidden;
@@ -332,7 +333,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin: 12px 0 0;
+  margin: 6px 0 0;
   line-height: 1.45;
 }
 
