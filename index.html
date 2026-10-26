@@ -2,174 +2,126 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="新的派 standby — 当代表演与现场艺术厂牌。" />
-    <title>新的派 standby — 现场艺术</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f4f1e8" />
+    <meta name="description" content="stanby — 演出、喜剧人与商务合作。" />
+    <title>stanby:</title>
+    <link rel="stylesheet" href="./styles.css?v=4" />
+    <script src="./script.js?v=2" defer></script>
   </head>
   <body>
-    <div class="noise" aria-hidden="true"></div>
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="新的派 standby 首页">
-        <span>新的派</span>
-        <span class="brand-en">STANDBY</span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span>菜单</span><span class="menu-symbol">＋</span>
-      </button>
-      <nav id="site-nav" class="site-nav" aria-label="主导航">
-        <a href="#now">正在演出</a>
-        <a href="#archive">过往演出</a>
-        <a href="#about">关于我们</a>
-        <a href="#contact">联系</a>
+      <a class="logo" href="#top" aria-label="stanby: 返回顶部">stanby:</a>
+      <nav class="site-nav" aria-label="页面导航">
+        <a href="#show">show</a>
+        <a href="#comedian">comedian</a>
+        <a href="#business">business</a>
       </nav>
     </header>
 
     <main id="top">
-      <section class="hero">
-        <img src="./assets/standby-hero.jpg" alt="聚光灯下，身着银色服装的表演者与红色布幔" />
-        <div class="hero-shade"></div>
-        <div class="hero-copy">
-          <p class="eyebrow light">新的派 · 2026 秋冬演出季</p>
-          <h1>未命名的<br />回声</h1>
-          <p class="hero-meta">10.23—11.16 · 上海 · 西岸穹顶艺术中心</p>
-          <a class="pill pill-light" href="#tickets">立即购票 <span>↗</span></a>
+      <section id="slogan" class="panel panel-slogan" aria-labelledby="slogan-title">
+        <p class="section-index">01 / slogan</p>
+        <div class="panel-content">
+          <p class="placeholder-label">SLOGAN CONTENT</p>
+          <h1 id="slogan-title">Slogan<br />coming soon.</h1>
         </div>
-        <p class="hero-index">NO. 09 / STANDBY LIVE</p>
       </section>
 
-      <div class="ticker" aria-label="公告">
-        <div class="ticker-track">
-          <span>现场不是答案，是问题发生的地方。</span><i>✦</i>
-          <span>NEW SEASON 2026</span><i>✦</i>
-          <span>现场不是答案，是问题发生的地方。</span><i>✦</i>
-          <span>NEW SEASON 2026</span><i>✦</i>
-        </div>
-      </div>
-
-      <section id="now" class="section now-section">
-        <div class="section-heading reveal">
-          <p class="eyebrow">ON STAGE / 正在发生</p>
-          <h2>此刻，<br />请保持在场。</h2>
-          <p class="section-intro">我们与创作者一起，把舞台变成一个仍在生长的现场。每一次演出，都只发生一次。</p>
+      <section id="show" class="panel panel-show show-section" aria-labelledby="show-title">
+        <p class="section-index">02 / show</p>
+        <div class="show-heading">
+          <p class="placeholder-label">SHOW ARCHIVE</p>
+          <h2 id="show-title">Show</h2>
         </div>
 
-        <div class="featured-show reveal">
-          <div class="featured-image image-wrap">
-            <img src="./assets/standby-orange.jpg" alt="橙色纱幕后正在移动的舞者" />
-            <span class="image-tag">本周首演</span>
+        <div class="show-category" data-category="now-playing">
+          <div class="category-heading">
+            <h3>Now Playing</h3>
+            <p>正在演出</p>
           </div>
-          <div class="show-info">
-            <p class="show-number">01</p>
-            <h3>潮汐练习<br /><em>TIDAL PRACTICE</em></h3>
-            <div class="show-details">
-              <p>舞蹈剧场 / 75分钟</p>
-              <p>导演、编舞：林默</p>
-              <p>10.30—11.02<br />上海 · 黑匣子剧场</p>
+          <div class="show-scroll-area">
+            <div class="scroll-controls is-hidden" aria-label="正在演出滚动控制">
+              <button type="button" data-scroll-direction="-1" aria-label="向左滑动">‹</button>
+              <button type="button" data-scroll-direction="1" aria-label="向右滑动">›</button>
             </div>
-            <a class="text-link" href="#tickets">演出详情 <span>→</span></a>
-          </div>
-        </div>
-
-        <div class="show-grid">
-          <article class="show-card reveal">
-            <a href="#tickets" class="image-wrap">
-              <img src="./assets/standby-chair.jpg" alt="空旷空间内坐在绿色椅子上的人物" />
-              <span class="card-date">11.08—11.10</span>
-            </a>
-            <div class="card-copy">
-              <span>02 / 剧场</span>
-              <h3>房间里的第六个人</h3>
-              <p>一个人，一把椅子，与五种没有被说出的沉默。</p>
+            <div class="show-scroller" data-show-list aria-live="polite">
+              <p class="shows-loading">正在读取演出资料…</p>
             </div>
-          </article>
-          <article class="show-card reveal">
-            <a href="#tickets" class="image-wrap">
-              <img src="./assets/standby-blue.jpg" alt="深蓝夜色中腾空的三位舞者" />
-              <span class="card-date">11.14—11.16</span>
-            </a>
-            <div class="card-copy">
-              <span>03 / 肢体剧场</span>
-              <h3>低空飞行</h3>
-              <p>在失重之前，我们先练习怎样离开地面。</p>
+          </div>
+        </div>
+
+        <div class="show-category" data-category="previous-shows">
+          <div class="category-heading">
+            <h3>Previous Shows</h3>
+            <p>过往演出</p>
+          </div>
+          <div class="show-scroll-area">
+            <div class="scroll-controls is-hidden" aria-label="过往演出滚动控制">
+              <button type="button" data-scroll-direction="-1" aria-label="向左滑动">‹</button>
+              <button type="button" data-scroll-direction="1" aria-label="向右滑动">›</button>
             </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="statement reveal">
-        <p class="eyebrow">WHAT WE BELIEVE</p>
-        <blockquote>“剧场开始于灯光亮起之前，<br />结束于观众离开之后。”</blockquote>
-        <p>新的派 standby 是一家植根于上海的当代表演厂牌。我们制作、策划并巡演那些难以被归类，却值得被看见的现场作品。</p>
-      </section>
-
-      <section id="archive" class="archive-section">
-        <div class="archive-head reveal">
-          <div>
-            <p class="eyebrow light">ARCHIVE / 过往演出</p>
-            <h2>曾经发生，<br />仍在回响。</h2>
-          </div>
-          <div class="filters" role="group" aria-label="按年份筛选">
-            <button class="filter active" data-year="all">全部</button>
-            <button class="filter" data-year="2025">2025</button>
-            <button class="filter" data-year="2024">2024</button>
-            <button class="filter" data-year="2023">2023</button>
+            <div class="show-scroller" data-show-list aria-live="polite">
+              <p class="shows-loading">正在读取演出资料…</p>
+            </div>
           </div>
         </div>
-        <div class="archive-list">
-          <a href="#" class="archive-item reveal" data-year="2025">
-            <span class="archive-year">2025</span><span class="archive-title">火山睡着以后</span>
-            <span class="archive-type">声音剧场</span><span class="archive-arrow">↗</span>
-          </a>
-          <a href="#" class="archive-item reveal" data-year="2025">
-            <span class="archive-year">2025</span><span class="archive-title">今夜无人返航</span>
-            <span class="archive-type">沉浸式演出</span><span class="archive-arrow">↗</span>
-          </a>
-          <a href="#" class="archive-item reveal" data-year="2024">
-            <span class="archive-year">2024</span><span class="archive-title">一平方米的海</span>
-            <span class="archive-type">新马戏</span><span class="archive-arrow">↗</span>
-          </a>
-          <a href="#" class="archive-item reveal" data-year="2024">
-            <span class="archive-year">2024</span><span class="archive-title">白日梦放映室</span>
-            <span class="archive-type">实验影像</span><span class="archive-arrow">↗</span>
-          </a>
-          <a href="#" class="archive-item reveal" data-year="2023">
-            <span class="archive-year">2023</span><span class="archive-title">候场 / STANDBY</span>
-            <span class="archive-type">肢体剧场</span><span class="archive-arrow">↗</span>
-          </a>
+      </section>
+
+      <section id="photos" class="panel panel-photos" aria-labelledby="photos-title">
+        <p class="section-index">03 / photos</p>
+        <div class="panel-content">
+          <p class="placeholder-label">PHOTOS CONTENT</p>
+          <h2 id="photos-title">Photos</h2>
+          <div class="photo-placeholder" aria-label="图片内容占位">
+            <span>image area</span>
+          </div>
         </div>
       </section>
 
-      <section id="about" class="about-section">
-        <div class="about-mark reveal">新<br />的<br />派</div>
-        <div class="about-copy reveal">
-          <p class="eyebrow">ABOUT STANDBY</p>
-          <h2>不是等待，<br />是随时准备发生。</h2>
-          <p>自 2023 年成立以来，新的派与来自舞蹈、戏剧、声音、视觉艺术等领域的创作者持续合作，探索现场表演的更多可能。</p>
-          <a class="pill" href="mailto:hello@standby-live.cn">认识我们 <span>↗</span></a>
+      <section id="comedian" class="panel panel-comedian" aria-labelledby="comedian-title">
+        <p class="section-index">04 / comedian</p>
+        <div class="panel-content">
+          <p class="placeholder-label">COMEDIAN CONTENT</p>
+          <h2 id="comedian-title">Comedian</h2>
+          <p class="placeholder-copy">喜剧人内容将在这里展示。</p>
         </div>
       </section>
 
-      <section id="tickets" class="newsletter">
-        <p class="eyebrow">STAY IN THE SCENE</p>
-        <h2>下一场，见。</h2>
-        <form>
-          <label class="sr-only" for="email">电子邮箱</label>
-          <input id="email" type="email" placeholder="留下你的邮箱" required />
-          <button type="submit" aria-label="订阅">→</button>
-        </form>
-        <p class="form-note">订阅演出资讯、早鸟票与创作幕后。我们不会频繁打扰。</p>
+      <section id="business" class="panel panel-business" aria-labelledby="business-title">
+        <p class="section-index">05 / business</p>
+        <div class="panel-content">
+          <p class="placeholder-label">BUSINESS CONTENT</p>
+          <h2 id="business-title">Business</h2>
+          <p class="placeholder-copy">商务合作内容将在这里展示。</p>
+        </div>
       </section>
     </main>
 
-    <footer id="contact">
-      <a class="footer-brand" href="#top">新的派<br /><span>standby</span></a>
-      <div class="footer-links">
-        <div><p>关注</p><a href="#">小红书</a><a href="#">微信公众号</a><a href="#">微博</a></div>
-        <div><p>联系</p><a href="mailto:hello@standby-live.cn">hello@standby-live.cn</a><a href="#">商务合作</a><a href="#">加入我们</a></div>
+    <dialog class="show-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" type="button" aria-label="关闭详情窗口">×</button>
+      <div class="dialog-layout">
+        <div class="dialog-image-wrap">
+          <img class="dialog-image" src="" alt="" />
+        </div>
+        <div class="dialog-copy">
+          <p class="dialog-label">SHOW DETAIL</p>
+          <dl>
+            <div>
+              <dt>演员</dt>
+              <dd data-dialog-actor></dd>
+            </div>
+            <div>
+              <dt>演出名称</dt>
+              <dd id="dialog-title" data-dialog-title></dd>
+            </div>
+            <div>
+              <dt>详细介绍</dt>
+              <dd data-dialog-description></dd>
+            </div>
+          </dl>
+        </div>
       </div>
-      <div class="footer-bottom"><span>© 2026 新的派 STANDBY</span><span>沪ICP备00000000号</span><span>SHANGHAI, CHINA</span></div>
-    </footer>
+    </dialog>
   </body>
 </html>

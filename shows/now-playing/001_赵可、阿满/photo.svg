@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#2754ff"/>
+  <rect x="85" y="155" width="630" height="690" fill="#f4f1e8" transform="rotate(-5 400 500)"/>
+  <circle cx="270" cy="370" r="130" fill="#111111"/>
+  <rect x="400" y="270" width="220" height="350" fill="#ff5b35" transform="rotate(12 510 445)"/>
+  <path d="M150 720 390 520l245 200z" fill="#d7ff35"/>
+  <text x="42" y="68" fill="#f4f1e8" font-family="Arial" font-size="28">STANBY: SHOW 001</text>
+</svg>

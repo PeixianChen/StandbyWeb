@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#111111"/>
+  <path d="M0 190h800v190H0zM0 620h800v190H0z" fill="#2754ff"/>
+  <circle cx="245" cy="500" r="180" fill="#d7ff35"/>
+  <circle cx="555" cy="500" r="180" fill="#ff5b35"/>
+  <text x="225" y="535" fill="#111111" font-family="Arial" font-size="110" font-weight="700">?</text>
+  <text x="530" y="535" fill="#111111" font-family="Arial" font-size="110" font-weight="700">!</text>
+  <text x="38" y="65" fill="#f4f1e8" font-family="Arial" font-size="27">STANBY: SHOW 003</text>
+  <text x="38" y="950" fill="#f4f1e8" font-family="Arial" font-size="48" font-weight="700">DO NOT ANSWER</text>
+</svg>
