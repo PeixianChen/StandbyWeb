@@ -252,6 +252,7 @@ button {
   margin-left: calc(var(--page-padding) * -1);
   padding: 8px var(--page-padding) 12px;
   display: flex;
+  align-items: flex-start;
   gap: 14px;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
@@ -265,8 +266,10 @@ button {
 }
 
 .show-card {
+  display: block;
   width: calc(100vw - var(--page-padding) * 2 - 28px);
   flex: 0 0 auto;
+  align-self: flex-start;
   padding: 0;
   color: inherit;
   background: transparent;
