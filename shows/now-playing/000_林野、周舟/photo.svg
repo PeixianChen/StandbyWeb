@@ -4,5 +4,5 @@
   <circle cx="555" cy="490" r="205" fill="#ff5b35"/>
   <path d="M95 1000V725c0-115 70-180 155-180s155 65 155 180v275z" fill="#f4f1e8"/>
   <path d="M395 1000V785c0-130 72-205 160-205s160 75 160 205v215z" fill="#2754ff"/>
-  <text x="48" y="78" fill="#f4f1e8" font-family="Arial" font-size="28">STANBY: SHOW 000</text>
+  <text x="48" y="78" fill="#f4f1e8" font-family="Jost, Futura, sans-serif" font-size="28">STAND:BY SHOW 000</text>
 </svg>

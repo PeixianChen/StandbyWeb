@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
-  <rect width="800" height="1000" fill="#2754ff"/>
-  <rect x="155" y="100" width="490" height="800" fill="#111111"/>
-  <rect x="215" y="160" width="370" height="680" fill="#ff5b35"/>
-  <circle cx="515" cy="500" r="25" fill="#d7ff35"/>
-  <path d="M245 310h280M245 380h190M245 690h280" stroke="#111111" stroke-width="24"/>
-  <text x="38" y="65" fill="#f4f1e8" font-family="Arial" font-size="27">STANBY: ARCHIVE 003</text>
-  <text x="38" y="960" fill="#f4f1e8" font-family="Arial" font-size="43" font-weight="700">THE NEXT DOOR</text>
-</svg>

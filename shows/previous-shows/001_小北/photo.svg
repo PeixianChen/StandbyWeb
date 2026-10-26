@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
-  <rect width="800" height="1000" fill="#ff5b35"/>
-  <path d="M170 0h460L520 790H280z" fill="#f4f1e8" opacity=".86"/>
-  <ellipse cx="400" cy="820" rx="255" ry="70" fill="#111111" opacity=".2"/>
-  <rect x="305" y="485" width="190" height="230" rx="8" fill="#111111"/>
-  <rect x="335" y="700" width="28" height="175" fill="#111111"/>
-  <rect x="438" y="700" width="28" height="175" fill="#111111"/>
-  <text x="42" y="70" fill="#111111" font-family="Arial" font-size="28">STANBY: ARCHIVE 001</text>
-</svg>

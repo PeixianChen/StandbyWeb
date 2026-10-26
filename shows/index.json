@@ -1,14 +1,38 @@
 {
   "now-playing": [
-    "000_林野、周舟",
-    "001_赵可、阿满",
-    "002_苏晴",
-    "003_陆离、石头"
+    {
+      "folder": "000_林野、周舟",
+      "photo": "photo.jpg"
+    },
+    {
+      "folder": "001_赵可、阿满",
+      "photo": "photo.jpg"
+    },
+    {
+      "folder": "002_苏晴",
+      "photo": "photo.jpg"
+    },
+    {
+      "folder": "003_陆离、石头",
+      "photo": "photo.jpg"
+    }
   ],
   "previous-shows": [
-    "000_陈一、王北",
-    "001_小北",
-    "002_安然",
-    "003_马冬"
+    {
+      "folder": "000_陈一、王北",
+      "photo": "photo.jpg"
+    },
+    {
+      "folder": "001_小北",
+      "photo": "photo.jpg"
+    },
+    {
+      "folder": "002_安然",
+      "photo": "photo.jpg"
+    },
+    {
+      "folder": "003_马冬",
+      "photo": "photo.jpg"
+    }
   ]
 }

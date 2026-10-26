@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
-  <rect width="800" height="1000" fill="#d7ff35"/>
-  <rect x="135" y="125" width="530" height="750" rx="265" fill="#f4f1e8"/>
-  <path d="M400 220v280l175 120" fill="none" stroke="#111111" stroke-width="34" stroke-linecap="round"/>
-  <circle cx="400" cy="500" r="34" fill="#ff5b35"/>
-  <text x="38" y="65" fill="#111111" font-family="Arial" font-size="27">STANBY: ARCHIVE 002</text>
-  <text x="38" y="950" fill="#111111" font-family="Arial" font-size="50" font-weight="700">TALK TOMORROW</text>
-</svg>

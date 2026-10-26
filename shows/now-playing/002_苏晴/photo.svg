@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
-  <rect width="800" height="1000" fill="#f4f1e8"/>
-  <path d="M0 0h400v500H0zm400 500h400v500H400z" fill="#d7ff35"/>
-  <path d="M400 0h400v500H400zM0 500h400v500H0z" fill="#111111"/>
-  <circle cx="400" cy="500" r="225" fill="#ff5b35"/>
-  <circle cx="400" cy="500" r="115" fill="#2754ff"/>
-  <text x="38" y="65" fill="#ff5b35" font-family="Arial" font-size="27">STANBY: SHOW 002</text>
-  <text x="38" y="950" fill="#f4f1e8" font-family="Arial" font-size="44" font-weight="700">HOW TO BE NORMAL</text>
-</svg>

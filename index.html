@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f4f1e8" />
-    <meta name="description" content="stanby — 演出、喜剧人与商务合作。" />
-    <title>stanby:</title>
-    <link rel="stylesheet" href="./styles.css?v=4" />
-    <script src="./script.js?v=2" defer></script>
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Stand:by — 演出、喜剧人与商务合作。" />
+    <title>Stand:by</title>
+    <link rel="stylesheet" href="./styles.css?v=12" />
+    <script src="./script.js?v=4" defer></script>
   </head>
   <body>
     <header class="site-header">
-      <a class="logo" href="#top" aria-label="stanby: 返回顶部">stanby:</a>
+      <a class="logo" href="#top" aria-label="Stand:by 返回顶部">Stand:by</a>
       <nav class="site-nav" aria-label="页面导航">
         <a href="#show">show</a>
         <a href="#comedian">comedian</a>
@@ -23,8 +23,8 @@
       <section id="slogan" class="panel panel-slogan" aria-labelledby="slogan-title">
         <p class="section-index">01 / slogan</p>
         <div class="panel-content">
-          <p class="placeholder-label">SLOGAN CONTENT</p>
-          <h1 id="slogan-title">Slogan<br />coming soon.</h1>
+          <p class="placeholder-label">STAND:BY</p>
+          <h1 id="slogan-title">Never fully ready,<br />always standby</h1>
         </div>
       </section>
 
@@ -41,7 +41,7 @@
             <p>正在演出</p>
           </div>
           <div class="show-scroll-area">
-            <div class="scroll-controls is-hidden" aria-label="正在演出滚动控制">
+            <div class="scroll-controls is-hidden" role="group" aria-label="正在演出滚动控制">
               <button type="button" data-scroll-direction="-1" aria-label="向左滑动">‹</button>
               <button type="button" data-scroll-direction="1" aria-label="向右滑动">›</button>
             </div>
@@ -57,7 +57,7 @@
             <p>过往演出</p>
           </div>
           <div class="show-scroll-area">
-            <div class="scroll-controls is-hidden" aria-label="过往演出滚动控制">
+            <div class="scroll-controls is-hidden" role="group" aria-label="过往演出滚动控制">
               <button type="button" data-scroll-direction="-1" aria-label="向左滑动">‹</button>
               <button type="button" data-scroll-direction="1" aria-label="向右滑动">›</button>
             </div>
@@ -70,12 +70,26 @@
 
       <section id="photos" class="panel panel-photos" aria-labelledby="photos-title">
         <p class="section-index">03 / photos</p>
-        <div class="panel-content">
+        <div class="photos-heading">
           <p class="placeholder-label">PHOTOS CONTENT</p>
           <h2 id="photos-title">Photos</h2>
-          <div class="photo-placeholder" aria-label="图片内容占位">
-            <span>image area</span>
+        </div>
+        <div
+          class="photo-carousel is-static"
+          data-photo-carousel
+          role="region"
+          aria-label="演出照片轮播"
+        >
+          <div class="photo-viewport">
+            <div class="photo-track" data-photo-track aria-live="off">
+              <p class="photos-loading">正在读取照片…</p>
+            </div>
           </div>
+          <button class="photo-control photo-control-previous" type="button" aria-label="上一张照片">‹</button>
+          <button class="photo-control photo-control-next" type="button" aria-label="下一张照片">›</button>
+          <p class="photo-counter" aria-live="polite">
+            <span data-photo-current>00</span> / <span data-photo-total>00</span>
+          </p>
         </div>
       </section>
 
@@ -102,7 +116,11 @@
       <button class="dialog-close" type="button" aria-label="关闭详情窗口">×</button>
       <div class="dialog-layout">
         <div class="dialog-image-wrap">
-          <img class="dialog-image" src="" alt="" />
+          <img
+            class="dialog-image"
+            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+            alt=""
+          />
         </div>
         <div class="dialog-copy">
           <p class="dialog-label">SHOW DETAIL</p>

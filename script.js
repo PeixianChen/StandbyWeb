@@ -8,9 +8,12 @@ const dialogActor = showDialog.querySelector("[data-dialog-actor]");
 const dialogTitle = showDialog.querySelector("[data-dialog-title]");
 const dialogDescription = showDialog.querySelector("[data-dialog-description]");
 const dialogClose = showDialog.querySelector(".dialog-close");
-const imageFileNames = ["photo.webp", "photo.jpg", "photo.jpeg", "photo.png", "photo.svg"];
 const showIndexPromise = fetch("./shows/index.json", { cache: "no-cache" }).then((response) => {
   if (!response.ok) throw new Error("无法读取 shows/index.json，请先生成演出索引。");
+  return response.json();
+});
+const photoIndexPromise = fetch("./photos/index.json", { cache: "no-cache" }).then((response) => {
+  if (!response.ok) throw new Error("无法读取 photos/index.json，请先生成照片索引。");
   return response.json();
 });
 
@@ -49,51 +52,58 @@ async function fetchText(url) {
   return response.text();
 }
 
-async function findPhoto(folder) {
-  for (const fileName of imageFileNames) {
-    const url = `${folder}/${fileName}`;
-    const response = await fetch(url, { cache: "no-cache" });
-    if (response.ok) return url;
-  }
+async function readShow(category, entry) {
+  if (!entry?.folder || !entry?.photo) throw new Error(`${category} 中存在无效索引项。`);
+  const folder = `./shows/${category}/${encodeURIComponent(entry.folder)}`;
 
-  throw new Error(`${folder} 中缺少 photo 图片`);
-}
-
-async function readShow(category, folderName) {
-  const folder = `./shows/${category}/${encodeURIComponent(folderName)}`;
-
-  const [actor, title, description, photo] = await Promise.all([
+  const [actor, title, description] = await Promise.all([
     fetchText(`${folder}/actor.txt`),
     fetchText(`${folder}/title.txt`),
     fetchText(`${folder}/description.txt`),
-    findPhoto(folder),
   ]);
 
   return {
     actor: actor.trim(),
     title: title.trim(),
     description: description.trim(),
-    photo,
+    photo: `${folder}/${encodeURIComponent(entry.photo)}`,
   };
 }
 
 async function readCategory(category) {
   const index = await showIndexPromise;
-  const folders = index[category];
+  const entries = index[category];
 
-  if (!Array.isArray(folders)) {
+  if (!Array.isArray(entries)) {
     throw new Error(`shows/index.json 中缺少 ${category} 栏目。`);
   }
 
-  return Promise.all(folders.map((folderName) => readShow(category, folderName)));
+  const results = await Promise.allSettled(entries.map((entry) => readShow(category, entry)));
+  const shows = [];
+
+  results.forEach((result, position) => {
+    if (result.status === "fulfilled") {
+      shows.push(result.value);
+    } else {
+      console.error(`跳过无法读取的演出：${entries[position]?.folder ?? position}`, result.reason);
+    }
+  });
+
+  if (entries.length > 0 && shows.length === 0) {
+    throw new Error(`${category} 中的演出资料均无法读取。`);
+  }
+
+  return shows;
 }
 
 function addMetaRow(list, label, value) {
-  const term = document.createElement("dt");
-  const detail = document.createElement("dd");
-  term.textContent = label;
-  detail.textContent = value;
-  list.append(term, detail);
+  const labelElement = document.createElement("span");
+  const valueElement = document.createElement("span");
+  labelElement.className = "show-meta-label";
+  valueElement.className = "show-meta-value";
+  labelElement.textContent = label;
+  valueElement.textContent = value;
+  list.append(labelElement, valueElement);
 }
 
 function openShowDialog(show) {
@@ -109,7 +119,7 @@ function createShowCard(show) {
   const card = document.createElement("button");
   const imageWrap = document.createElement("span");
   const image = document.createElement("img");
-  const meta = document.createElement("dl");
+  const meta = document.createElement("span");
 
   card.className = "show-card";
   card.type = "button";
@@ -187,6 +197,145 @@ async function renderCategory(section) {
 }
 
 document.querySelectorAll(".show-category").forEach(renderCategory);
+
+function createPhotoSlide(fileName, position) {
+  const slide = document.createElement("div");
+  const image = document.createElement("img");
+  const photoName = fileName.replace(/^\d{3}_/u, "").replace(/\.[^.]+$/u, "");
+
+  slide.className = "photo-slide";
+  image.src = `./photos/${encodeURIComponent(fileName)}`;
+  image.alt = photoName;
+  image.loading = position === 0 ? "eager" : "lazy";
+  image.decoding = "async";
+  slide.append(image);
+
+  return slide;
+}
+
+async function renderPhotoCarousel() {
+  const carousel = document.querySelector("[data-photo-carousel]");
+  const track = carousel.querySelector("[data-photo-track]");
+  const previousButton = carousel.querySelector(".photo-control-previous");
+  const nextButton = carousel.querySelector(".photo-control-next");
+  const currentLabel = carousel.querySelector("[data-photo-current]");
+  const totalLabel = carousel.querySelector("[data-photo-total]");
+
+  try {
+    const photos = await photoIndexPromise;
+    if (!Array.isArray(photos)) throw new Error("photos/index.json 格式不正确。");
+
+    track.replaceChildren();
+    totalLabel.textContent = String(photos.length).padStart(2, "0");
+
+    if (photos.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "photos-empty";
+      empty.textContent = "暂无照片";
+      track.append(empty);
+      return;
+    }
+
+    photos.forEach((fileName, position) => track.append(createPhotoSlide(fileName, position)));
+    carousel.classList.toggle("is-static", photos.length === 1);
+
+    let current = 0;
+    let timer = null;
+    let isVisible = !("IntersectionObserver" in window);
+    let isPaused = false;
+    let touchStartX = null;
+
+    const showPhoto = (nextIndex) => {
+      current = (nextIndex + photos.length) % photos.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      currentLabel.textContent = String(current + 1).padStart(2, "0");
+    };
+
+    const stopAutoplay = () => {
+      window.clearInterval(timer);
+      timer = null;
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (photos.length > 1 && isVisible && !isPaused && !document.hidden) {
+        timer = window.setInterval(() => showPhoto(current + 1), 3000);
+      }
+    };
+
+    const moveManually = (direction) => {
+      showPhoto(current + direction);
+      startAutoplay();
+    };
+
+    previousButton.addEventListener("click", () => moveManually(-1));
+    nextButton.addEventListener("click", () => moveManually(1));
+
+    carousel.addEventListener("mouseenter", () => {
+      isPaused = true;
+      stopAutoplay();
+    });
+    carousel.addEventListener("mouseleave", () => {
+      isPaused = false;
+      startAutoplay();
+    });
+    carousel.addEventListener("focusin", () => {
+      isPaused = true;
+      stopAutoplay();
+    });
+    carousel.addEventListener("focusout", (event) => {
+      if (!carousel.contains(event.relatedTarget)) {
+        isPaused = false;
+        startAutoplay();
+      }
+    });
+
+    carousel.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+        stopAutoplay();
+      },
+      { passive: true },
+    );
+    carousel.addEventListener(
+      "touchend",
+      (event) => {
+        if (touchStartX === null) return;
+        const distance = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(distance) > 40) showPhoto(current + (distance < 0 ? 1 : -1));
+        touchStartX = null;
+        startAutoplay();
+      },
+      { passive: true },
+    );
+
+    if ("IntersectionObserver" in window) {
+      const carouselObserver = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) startAutoplay();
+          else stopAutoplay();
+        },
+        { threshold: 0.25 },
+      );
+      carouselObserver.observe(carousel);
+    } else {
+      startAutoplay();
+    }
+
+    document.addEventListener("visibilitychange", startAutoplay);
+    showPhoto(0);
+  } catch (error) {
+    const message = document.createElement("p");
+    message.className = "photos-empty";
+    message.textContent = "照片读取失败，请检查照片索引。";
+    track.replaceChildren(message);
+    console.error(error);
+  }
+}
+
+renderPhotoCarousel();
 
 dialogClose.addEventListener("click", () => showDialog.close());
 showDialog.addEventListener("click", (event) => {
