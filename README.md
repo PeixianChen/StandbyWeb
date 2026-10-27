@@ -80,45 +80,47 @@ StandbyWeb/
 ├── actor.txt
 ├── title.txt
 ├── description.txt
-└── photo.jpg
+├── thumbnail.webp
+└── detail.webp
 ```
 
 - `actor.txt`：演员名称，可以填写一位或多位演员。
 - `title.txt`：演出名称。
 - `description.txt`：详细介绍，允许换行和多个段落。
-- `photo.*`：演出海报，文件名必须为 `photo`。
+- `thumbnail.*`：列表缩略图，进入 Show 栏目时加载。
+- `detail.*`：详情图，点击对应海报后才加载。
 
-文字文件使用 UTF-8 编码，并且不能是空文件。每个演出文件夹只能保留一张 `photo.*`。
+文字文件使用 UTF-8 编码，并且不能是空文件。每个演出文件夹必须同时具有一张缩略图和一张详情图。
 
-海报支持：
+两类图片均支持：
 
 ```text
-photo.webp
-photo.jpg
-photo.jpeg
-photo.png
-photo.svg
+thumbnail.webp / detail.webp
+thumbnail.jpg  / detail.jpg
+thumbnail.jpeg / detail.jpeg
+thumbnail.png  / detail.png
+thumbnail.svg  / detail.svg
 ```
 
-文件名区分大小写，请使用小写文件名，不要使用 `Photo.JPG` 等形式。
+同一种图片只能保留一个格式。文件名区分大小写，请使用小写文件名，不要使用 `Thumbnail.JPG` 等形式。
 
 ### Show 海报尺寸要求
 
-- 推荐比例：`1 : 1.414`，即竖版 A 系列海报比例。
-- 推荐尺寸：`1400 × 1980 px`。
-- 最低建议尺寸：`1000 × 1414 px`。
-- 推荐格式：优先使用 WebP，其次使用压缩后的 JPG。
-- 建议单张文件不超过 `500 KB`，最高尽量不要超过 `1 MB`。
+- 两张图片都推荐使用 `1 : 1.414` 的竖版 A 系列海报比例。
+- `thumbnail.webp` 推荐 `700 × 990 px`，不得超过 `500 KB`。
+- `detail.webp` 推荐 `1400 × 1980 px`，不得超过 `1 MB`。
+- 优先使用 WebP，其次使用压缩后的 JPG。
 - 图片会完整显示，不会裁剪；比例不同会出现留白。
-- 不要直接上传相机原图、印刷源文件或 10 MB 以上的海报。
+- 列表只下载缩略图，详情图只会在点击海报后下载。
+- 不要将同一张大图同时复制为两个文件名；应分别导出对应尺寸。
 
-以上尺寸和体积是性能建议，生成脚本不会自动压缩图片。
+生成脚本会检查文件体积，但不会自动调整尺寸或压缩图片。请在放入文件夹前完成图片导出。
 
 ### 添加一场演出
 
 1. 在对应栏目中复制一个现有演出文件夹。
 2. 按照“三位数字_演员名”重新命名。
-3. 替换三个 TXT 文件和一张 `photo.*`。
+3. 替换三个 TXT 文件、`thumbnail.*` 和 `detail.*`。
 4. 确认同一栏目内没有重复编号。
 5. 在项目根目录重新生成索引：
 
@@ -265,7 +267,8 @@ http://localhost:8000/
 - 文件夹和照片是否都使用三位数字编号。
 - 同一栏目内是否存在重复编号。
 - Show 的三个 TXT 是否完整、非空并使用 UTF-8。
-- 每场 Show 是否只有一张 `photo.*`。
+- 每场 Show 是否各有一张 `thumbnail.*` 和 `detail.*`。
+- 缩略图是否不超过 500 KB，详情图是否不超过 1 MB。
 - 图片方向、比例和尺寸是否符合建议。
 - 图片是否已经压缩到合理体积。
 - `slogan/README.txt` 是否记录了图片来源和授权。

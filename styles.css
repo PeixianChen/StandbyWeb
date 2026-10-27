@@ -324,7 +324,7 @@ button {
 .show-card-image {
   display: block;
   width: 100%;
-  aspect-ratio: 3509 / 4962;
+  aspect-ratio: 70 / 99;
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--background);

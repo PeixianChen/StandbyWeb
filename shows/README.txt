@@ -13,21 +13,25 @@
    actor.txt       演员
    title.txt       演出名称
    description.txt 详细介绍（允许换行和多段）
-   photo.*         演出图片
+   thumbnail.*     列表缩略图
+   detail.*        详情窗口图片
 
-4. 图片文件必须命名为 photo，支持以下格式：
-   photo.webp、photo.jpg、photo.jpeg、photo.png、photo.svg
-   同一个演出文件夹内只保留一个 photo 图片。
+4. 两张图片分别命名为 thumbnail 和 detail，支持以下格式：
+   webp、jpg、jpeg、png、svg
+   每种图片只能保留一个格式，推荐统一使用：
+   thumbnail.webp  700 × 990 px，最大 500 KB
+   detail.webp     1400 × 1980 px，最大 1 MB
+   网页列表只读取 thumbnail，点击海报后才读取 detail。
 
 5. 添加演出
-   复制一个现有文件夹，按“三位数字_演员名”重命名，再替换其中四个资料文件。
+   复制一个现有文件夹，按“三位数字_演员名”重命名，再替换其中五个资料文件。
 
 6. 删除或调整顺序
    删除文件夹即可删除演出。修改下划线前的三位数字即可调整顺序。
 
 7. 本地预览前，在项目根目录运行：
    node scripts/generate-indexes.mjs
-   命令会扫描文件夹，检查命名、缺失文件、空白文字和重复图片，并生成索引。
+   命令会检查命名、缺失文件、空白文字、重复图片和图片体积，并生成索引。
    随后刷新网页即可看到更新，不需要修改 index.html、styles.css 或 script.js。
 
 8. 推送到 GitHub 后，GitHub Actions 会自动执行同一套检查并生成线上索引。

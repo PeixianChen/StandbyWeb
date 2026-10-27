@@ -1,4 +1,4 @@
-import { readFile, readdir, writeFile } from "node:fs/promises";
+import { readFile, readdir, stat, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -6,7 +6,11 @@ const projectRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
 const showsRoot = join(projectRoot, "shows");
 const categories = ["now-playing", "previous-shows"];
 const folderPattern = /^(\d{3})_(.+)$/u;
-const imageFileNames = ["photo.webp", "photo.jpg", "photo.jpeg", "photo.png", "photo.svg"];
+const imageExtensions = ["webp", "jpg", "jpeg", "png", "svg"];
+const imageSpecs = [
+  { field: "thumbnail", baseName: "thumbnail", label: "缩略图", maxBytes: 500 * 1024 },
+  { field: "detail", baseName: "detail", label: "详情图", maxBytes: 1024 * 1024 },
+];
 const textFileNames = ["actor.txt", "title.txt", "description.txt"];
 const index = {};
 
@@ -17,7 +21,7 @@ for (const category of categories) {
   for (const entry of entries.filter((item) => item.isDirectory())) {
     const match = entry.name.match(folderPattern);
 
-    if (!match) {
+    if (!match || !match[2].trim()) {
       throw new Error(
         `文件夹“shows/${category}/${entry.name}”命名不正确，应使用“000_演员名”格式。`,
       );
@@ -29,14 +33,30 @@ for (const category of categories) {
       throw new Error(`shows/${category}/${entry.name} 是空文件夹。`);
     }
 
-    const photos = imageFileNames.filter((fileName) => contents.includes(fileName));
-    if (photos.length === 0) {
-      throw new Error(`shows/${category}/${entry.name} 中缺少 photo 图片。`);
-    }
-    if (photos.length > 1) {
-      throw new Error(
-        `shows/${category}/${entry.name} 中存在多张 photo 图片：${photos.join("、")}。`,
-      );
+    const images = {};
+    for (const spec of imageSpecs) {
+      const candidates = imageExtensions
+        .map((extension) => `${spec.baseName}.${extension}`)
+        .filter((fileName) => contents.includes(fileName));
+
+      if (candidates.length === 0) {
+        throw new Error(`shows/${category}/${entry.name} 中缺少 ${spec.baseName} ${spec.label}。`);
+      }
+      if (candidates.length > 1) {
+        throw new Error(
+          `shows/${category}/${entry.name} 中存在多张 ${spec.label}：${candidates.join("、")}。`,
+        );
+      }
+
+      const fileName = candidates[0];
+      const fileSize = (await stat(join(folderPath, fileName))).size;
+      if (fileSize > spec.maxBytes) {
+        throw new Error(
+          `shows/${category}/${entry.name}/${fileName} 体积为 ${(fileSize / 1024 / 1024).toFixed(2)} MB，` +
+            `${spec.label}不得超过 ${(spec.maxBytes / 1024 / 1024).toFixed(2)} MB。`,
+        );
+      }
+      images[spec.field] = fileName;
     }
 
     const missingTextFile = textFileNames.find((fileName) => !contents.includes(fileName));
@@ -57,7 +77,8 @@ for (const category of categories) {
     folders.push({
       name: entry.name,
       order: Number(match[1]),
-      photo: photos[0],
+      thumbnail: images.thumbnail,
+      detail: images.detail,
       actor: textValues[0],
       title: textValues[1],
       description: textValues[2],
@@ -76,7 +97,8 @@ for (const category of categories) {
 
   index[category] = folders.map((folder) => ({
     folder: folder.name,
-    photo: folder.photo,
+    thumbnail: folder.thumbnail,
+    detail: folder.detail,
     actor: folder.actor,
     title: folder.title,
     description: folder.description,

@@ -47,7 +47,7 @@ if ("IntersectionObserver" in window) {
 }
 
 function readShow(category, entry) {
-  const requiredFields = ["folder", "photo", "actor", "title", "description"];
+  const requiredFields = ["folder", "thumbnail", "detail", "actor", "title", "description"];
   const invalidField = requiredFields.find(
     (field) => typeof entry?.[field] !== "string" || entry[field].trim() === "",
   );
@@ -62,7 +62,8 @@ function readShow(category, entry) {
     actor: entry.actor.trim(),
     title: entry.title.trim(),
     description: entry.description.trim(),
-    photo: `${folder}/${encodeURIComponent(entry.photo)}`,
+    thumbnail: `${folder}/${encodeURIComponent(entry.thumbnail)}`,
+    detail: `${folder}/${encodeURIComponent(entry.detail)}`,
   };
 }
 
@@ -92,7 +93,7 @@ async function readCategory(category) {
 }
 
 function openShowDialog(show) {
-  dialogImage.src = show.photo;
+  dialogImage.src = show.detail;
   dialogImage.alt = `${show.title}演出图片`;
   dialogActor.textContent = show.actor;
   dialogTitle.textContent = show.title;
@@ -100,7 +101,7 @@ function openShowDialog(show) {
   showDialog.showModal();
 }
 
-function createShowCard(show) {
+function createShowCard(show, isPriority) {
   const card = document.createElement("button");
   const imageWrap = document.createElement("span");
   const image = document.createElement("img");
@@ -112,9 +113,10 @@ function createShowCard(show) {
   card.type = "button";
   card.setAttribute("aria-label", `查看《${show.title}》详情`);
   imageWrap.className = "show-card-image";
-  image.src = show.photo;
+  image.src = show.thumbnail;
   image.alt = `${show.title}演出图片`;
-  image.loading = "lazy";
+  image.loading = isPriority ? "eager" : "lazy";
+  if (isPriority) image.fetchPriority = "high";
   image.decoding = "async";
   meta.className = "show-card-meta";
   title.className = "show-card-title";
@@ -175,7 +177,10 @@ async function renderCategory(section) {
     }
 
     list.dataset.count = String(shows.length);
-    shows.forEach((show) => list.append(createShowCard(show)));
+    shows.forEach((show, position) => {
+      const isPriority = category === "now-playing" && position === 0;
+      list.append(createShowCard(show, isPriority));
+    });
     enableScrollControls(section, list);
   } catch (error) {
     const message = document.createElement("p");
