@@ -20,6 +20,27 @@ function create(tag, className, text) {
   return element;
 }
 
+const CHEVRONS = {
+  up: "M5 15l7-7 7 7",
+  down: "M5 9l7 7 7-7",
+  left: "M15 5l-7 7 7 7",
+  right: "M9 5l7 7-7 7",
+};
+
+function createArrowButton(direction, label) {
+  const button = create("button", "arrow-button");
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  button.type = "button";
+  button.setAttribute("aria-label", label);
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  path.setAttribute("d", CHEVRONS[direction]);
+  svg.append(path);
+  button.append(svg);
+  return button;
+}
+
 function createImage(image, alt = "", { eager = false, className } = {}) {
   const element = create("img", className);
   element.src = assetUrl(image.src);
@@ -122,8 +143,8 @@ function renderFigures(section) {
   const stage = reveal(create("div", "figures-stage"));
   const windowElement = create("div", "figures-window");
   const controls = create("div", "figures-controls");
-  const previous = create("button", "figures-button", "↑");
-  const next = create("button", "figures-button", "↓");
+  const previous = createArrowButton("up", "上一组数据");
+  const next = createArrowButton("down", "下一组数据");
   const count = create("span", "figures-count");
   const progress = create("div", "figures-progress");
   const total = section.items.length;
@@ -131,9 +152,6 @@ function renderFigures(section) {
   windowElement.tabIndex = 0;
   windowElement.setAttribute("role", "region");
   windowElement.setAttribute("aria-label", `${section.title}，可上下滑动`);
-  previous.type = next.type = "button";
-  previous.setAttribute("aria-label", "上一组数据");
-  next.setAttribute("aria-label", "下一组数据");
 
   section.items.forEach((item) => {
     const figure = create("div", "figure");
@@ -402,8 +420,8 @@ function renderShows(section) {
   const element = createSection(section, "shows");
   const header = element.querySelector(".section-header");
   const controls = create("div", "shows-controls");
-  const previous = create("button", "round-button", "←");
-  const next = create("button", "round-button", "→");
+  const previous = createArrowButton("left", "上一个专场");
+  const next = createArrowButton("right", "下一个专场");
   const stage = create("div", "shows-stage");
   const caption = create("div", "shows-caption");
   const captionArtist = create("p", "shows-caption-artist");
@@ -417,9 +435,6 @@ function renderShows(section) {
   let holdUntil = 0;
   let preload = false;
 
-  previous.type = next.type = "button";
-  previous.setAttribute("aria-label", "上一个专场");
-  next.setAttribute("aria-label", "下一个专场");
   controls.append(previous, next);
   header.append(controls);
   stage.tabIndex = 0;
