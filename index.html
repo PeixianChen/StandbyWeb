@@ -3,131 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Stand:by — 演出、喜剧人与商务合作。" />
-    <title>Stand:by</title>
-    <link rel="stylesheet" href="./styles.css?v=21" />
-    <script src="./script.js?v=7" defer></script>
+    <meta name="theme-color" content="#0b0b0a" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="description" content="Stand:by 新的派 — 为全世界呈现顶级的中文喜剧演出。" />
+    <title>Stand:by 新的派</title>
+    <link rel="preload" href="./fonts/jost-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css?v=48" />
+    <script src="./script.js?v=48" defer></script>
   </head>
   <body>
-    <header class="site-header">
-      <a class="logo" href="#top" aria-label="Stand:by 返回顶部">Stand:by</a>
-      <nav class="site-nav" aria-label="页面导航">
-        <a href="#show">show</a>
-        <a href="#comedian">comedian</a>
-        <a href="#business">business</a>
+    <div class="phone">
+      <header class="topbar">
+        <a class="topbar-logo" href="#top" aria-label="返回顶部">Stand<i>:</i>by</a>
+        <button class="topbar-menu" type="button" aria-expanded="false" aria-controls="section-menu">
+          <span class="topbar-title" data-current-title>目录</span>
+          <span class="topbar-icon" aria-hidden="true"></span>
+        </button>
+      </header>
+
+      <nav id="section-menu" class="section-menu" aria-label="版面目录" hidden>
+        <ol data-section-menu></ol>
       </nav>
-    </header>
 
-    <main id="top">
-      <section id="slogan" class="panel panel-slogan" aria-labelledby="slogan-title">
-        <div class="panel-content">
-          <h1 id="slogan-title">Never fully ready,<br />always standby</h1>
-        </div>
-      </section>
+      <main id="top" data-sections>
+        <p class="page-status" data-page-status>Stand<i>:</i>by</p>
+      </main>
 
-      <section id="show" class="panel show-section" aria-labelledby="show-title">
-        <div class="show-heading">
-          <h2 id="show-title">Show</h2>
-        </div>
+      <footer class="footer">
+        <p class="footer-brand">Stand<i>:</i>by <span>新的派</span></p>
+        <a class="footer-top" href="#top">回到顶部 ↑</a>
+      </footer>
+    </div>
 
-        <div class="show-category" data-category="now-playing">
-          <div class="category-heading">
-            <h3>Now Playing</h3>
-            <p>正在演出</p>
-          </div>
-          <div class="show-scroll-area">
-            <div class="scroll-controls is-hidden" role="group" aria-label="正在演出滚动控制">
-              <button type="button" data-scroll-direction="-1" aria-label="向左滑动">‹</button>
-              <button type="button" data-scroll-direction="1" aria-label="向右滑动">›</button>
-            </div>
-            <div class="show-scroller" data-show-list aria-live="polite">
-              <p class="shows-loading">正在读取演出资料…</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="show-category" data-category="previous-shows">
-          <div class="category-heading">
-            <h3>Previous Shows</h3>
-            <p>过往演出</p>
-          </div>
-          <div class="show-scroll-area">
-            <div class="scroll-controls is-hidden" role="group" aria-label="过往演出滚动控制">
-              <button type="button" data-scroll-direction="-1" aria-label="向左滑动">‹</button>
-              <button type="button" data-scroll-direction="1" aria-label="向右滑动">›</button>
-            </div>
-            <div class="show-scroller" data-show-list aria-live="polite">
-              <p class="shows-loading">正在读取演出资料…</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="photos" class="panel panel-photos" aria-labelledby="photos-title">
-        <div class="photos-heading">
-          <h2 id="photos-title">Photos</h2>
-        </div>
-        <div
-          class="photo-carousel is-static"
-          data-photo-carousel
-          role="region"
-          aria-label="演出照片轮播"
-        >
-          <div class="photo-viewport">
-            <div class="photo-track" data-photo-track aria-live="off">
-              <p class="photos-loading">正在读取照片…</p>
-            </div>
-          </div>
-          <button class="photo-control photo-control-previous" type="button" aria-label="上一张照片">‹</button>
-          <button class="photo-control photo-control-next" type="button" aria-label="下一张照片">›</button>
-          <p class="photo-counter">
-            <span data-photo-current>00</span> / <span data-photo-total>00</span>
-          </p>
-        </div>
-      </section>
-
-      <section id="comedian" class="panel" aria-labelledby="comedian-title">
-        <div class="panel-content">
-          <h2 id="comedian-title">Comedian</h2>
-          <p class="placeholder-copy">喜剧人内容将在这里展示。</p>
-        </div>
-      </section>
-
-      <section id="business" class="panel" aria-labelledby="business-title">
-        <div class="panel-content">
-          <h2 id="business-title">Business</h2>
-          <p class="placeholder-copy">商务合作内容将在这里展示。</p>
-        </div>
-      </section>
-    </main>
-
-    <dialog class="show-dialog" aria-labelledby="dialog-title">
-      <button class="dialog-close" type="button" aria-label="关闭详情窗口">×</button>
-      <div class="dialog-layout">
-        <div class="dialog-image-wrap">
-          <img
-            class="dialog-image"
-            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-            alt=""
-          />
-        </div>
-        <div class="dialog-copy">
-          <p class="dialog-label">SHOW DETAIL</p>
-          <dl>
-            <div>
-              <dt>演员</dt>
-              <dd data-dialog-actor></dd>
-            </div>
-            <div>
-              <dt>演出名称</dt>
-              <dd id="dialog-title" data-dialog-title></dd>
-            </div>
-            <div>
-              <dt>详细介绍</dt>
-              <dd data-dialog-description></dd>
-            </div>
-          </dl>
+    <dialog class="show-dialog" aria-labelledby="show-dialog-title">
+      <div class="show-dialog-body">
+        <button class="show-dialog-close" type="button" aria-label="关闭">×</button>
+        <img class="show-dialog-image" alt="" />
+        <div class="show-dialog-copy">
+          <p class="show-dialog-artist" data-dialog-artist></p>
+          <h3 id="show-dialog-title" data-dialog-title></h3>
+          <p class="show-dialog-text" data-dialog-text></p>
         </div>
       </div>
     </dialog>

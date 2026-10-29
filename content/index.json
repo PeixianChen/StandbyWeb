@@ -1,0 +1,308 @@
+{
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "title": "为全世界呈现顶级的中文喜剧演出",
+      "subtitle": "Never fully ready, always stand:by",
+      "cta": "向下浏览",
+      "logo": {
+        "src": "content/01_hero/logo.webp",
+        "width": 900,
+        "height": 231
+      },
+      "background": {
+        "src": "content/01_hero/background.webp",
+        "width": 1200,
+        "height": 789
+      }
+    },
+    {
+      "id": "figures",
+      "type": "figures",
+      "title": "核心数据",
+      "subtitle": "Key Figures",
+      "background": {
+        "src": "content/02_figures/background.webp",
+        "width": 1400,
+        "height": 928
+      },
+      "items": [
+        {
+          "label": "全年巡演",
+          "value": "400场"
+        },
+        {
+          "label": "合作演员",
+          "value": "xxx位"
+        },
+        {
+          "label": "观众人次",
+          "value": "xxxxxxx个"
+        },
+        {
+          "label": "全网曝光",
+          "value": "xx亿"
+        }
+      ]
+    },
+    {
+      "id": "ip",
+      "type": "ip",
+      "title": "综艺 IP",
+      "subtitle": "Variety IP",
+      "items": [
+        {
+          "title": "《喜人奇妙夜》全国巡演",
+          "image": {
+            "src": "content/03_ip/000_喜人奇妙夜/image.webp",
+            "width": 1200,
+            "height": 675
+          }
+        },
+        {
+          "title": "《喜剧之王单口季》巡回演出",
+          "image": {
+            "src": "content/03_ip/001_喜剧之王单口季/image.webp",
+            "width": 583,
+            "height": 328
+          }
+        }
+      ]
+    },
+    {
+      "id": "scenes",
+      "type": "scenes",
+      "title": "演出现场",
+      "subtitle": "On Stage",
+      "note": "触摸暂停，左右滑动浏览。",
+      "items": [
+        {
+          "src": "content/04_scenes/000_喜人奇妙夜深圳站合影.webp",
+          "width": 800,
+          "height": 534,
+          "alt": "喜人奇妙夜深圳站合影"
+        },
+        {
+          "src": "content/04_scenes/001_刘旸专场演出.webp",
+          "width": 800,
+          "height": 534,
+          "alt": "刘旸专场演出"
+        },
+        {
+          "src": "content/04_scenes/002_剧场座席.webp",
+          "width": 800,
+          "height": 482,
+          "alt": "剧场座席"
+        },
+        {
+          "src": "content/04_scenes/003_刘旸教主专场舞台.webp",
+          "width": 304,
+          "height": 202,
+          "alt": "刘旸教主专场舞台"
+        },
+        {
+          "src": "content/04_scenes/004_豆豆专场前厅陈列.webp",
+          "width": 800,
+          "height": 534,
+          "alt": "豆豆专场前厅陈列"
+        }
+      ]
+    },
+    {
+      "id": "shows",
+      "type": "shows",
+      "title": "专场",
+      "subtitle": "Special Shows",
+      "items": [
+        {
+          "artist": "小鹿",
+          "title": "我的中女时代",
+          "description": "全球巡演 111 场，覆盖 44 城。",
+          "poster": {
+            "src": "content/05_shows/000_小鹿/poster.webp",
+            "width": 555,
+            "height": 784
+          }
+        },
+        {
+          "artist": "刘旸教主",
+          "title": "身心俱疲",
+          "poster": {
+            "src": "content/05_shows/001_刘旸教主/poster.webp",
+            "width": 720,
+            "height": 1112
+          }
+        },
+        {
+          "artist": "付航",
+          "title": "快乐管理猿",
+          "poster": {
+            "src": "content/05_shows/002_付航/poster.webp",
+            "width": 720,
+            "height": 960
+          }
+        },
+        {
+          "artist": "门腔",
+          "title": "一门心思",
+          "poster": {
+            "src": "content/05_shows/003_门腔/poster.webp",
+            "width": 529,
+            "height": 748
+          }
+        },
+        {
+          "artist": "门腔",
+          "title": "有出息",
+          "poster": {
+            "src": "content/05_shows/004_门腔/poster.webp",
+            "width": 340,
+            "height": 458
+          }
+        },
+        {
+          "artist": "王越",
+          "title": "短发",
+          "poster": {
+            "src": "content/05_shows/005_王越/poster.webp",
+            "width": 720,
+            "height": 960
+          }
+        },
+        {
+          "artist": "于祥宇",
+          "title": "最小单位的于祥宇",
+          "poster": {
+            "src": "content/05_shows/006_于祥宇/poster.webp",
+            "width": 720,
+            "height": 1055
+          }
+        },
+        {
+          "artist": "鑫博",
+          "title": "发现丑的眼睛2.0",
+          "poster": {
+            "src": "content/05_shows/007_鑫博/poster.webp",
+            "width": 529,
+            "height": 749
+          }
+        },
+        {
+          "artist": "豆豆",
+          "title": "算你厉害",
+          "poster": {
+            "src": "content/05_shows/008_豆豆/poster.webp",
+            "width": 720,
+            "height": 960
+          }
+        },
+        {
+          "artist": "肉食动物",
+          "title": "硬币",
+          "poster": {
+            "src": "content/05_shows/009_肉食动物/poster.webp",
+            "width": 529,
+            "height": 748
+          }
+        },
+        {
+          "artist": "航哥",
+          "title": "男左女右",
+          "poster": {
+            "src": "content/05_shows/010_航哥/poster.webp",
+            "width": 561,
+            "height": 747
+          }
+        }
+      ]
+    },
+    {
+      "id": "artists",
+      "type": "artists",
+      "title": "签约演员",
+      "subtitle": "Artists",
+      "items": [
+        {
+          "name": "门腔",
+          "role": "脱口秀演员、内容创作者",
+          "focus": "50% 28% 1.1",
+          "photo": {
+            "src": "content/06_artists/000_门腔/photo.webp",
+            "width": 800,
+            "height": 1132
+          }
+        },
+        {
+          "name": "贤鱼",
+          "role": "脱口秀演员、播客策划与主持人",
+          "focus": "72% 26% 1.75",
+          "photo": {
+            "src": "content/06_artists/001_贤鱼/photo.webp",
+            "width": 800,
+            "height": 1201
+          }
+        },
+        {
+          "name": "多多",
+          "role": "脱口秀演员、编剧、播客主播",
+          "focus": "70% 34% 1.9",
+          "photo": {
+            "src": "content/06_artists/002_多多/photo.webp",
+            "width": 800,
+            "height": 1201
+          }
+        }
+      ]
+    },
+    {
+      "id": "resources",
+      "type": "resources",
+      "title": "合作资源",
+      "subtitle": "Partners",
+      "note": "点按任意一块查看，标注“待补”的位置需换入正式素材。",
+      "items": [
+        {
+          "title": "牛C马O述职",
+          "note": "现场照片待补"
+        },
+        {
+          "title": "大麦",
+          "logo": {
+            "src": "content/07_resources/001_大麦/logo.webp",
+            "width": 650,
+            "height": 176
+          }
+        },
+        {
+          "title": "合作剧院",
+          "note": "Logo 素材待替换"
+        },
+        {
+          "title": "周边",
+          "image": {
+            "src": "content/07_resources/003_周边/image.webp",
+            "width": 453,
+            "height": 302
+          }
+        },
+        {
+          "title": "专场商务",
+          "image": {
+            "src": "content/07_resources/004_专场商务/image.webp",
+            "width": 900,
+            "height": 425
+          }
+        },
+        {
+          "title": "联名合作",
+          "image": {
+            "src": "content/07_resources/005_联名合作/image.webp",
+            "width": 427,
+            "height": 427
+          }
+        }
+      ]
+    }
+  ]
+}
