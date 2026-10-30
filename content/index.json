@@ -73,7 +73,7 @@
     {
       "id": "scenes",
       "type": "scenes",
-      "title": "演出现场",
+      "title": "现场照片",
       "subtitle": "On Stage",
       "note": "触摸暂停，左右滑动浏览。",
       "items": [
@@ -112,7 +112,7 @@
     {
       "id": "shows",
       "type": "shows",
-      "title": "专场",
+      "title": "专场演出",
       "subtitle": "Special Shows",
       "items": [
         {

@@ -127,7 +127,9 @@ function renderHero(section, context) {
 
   const cta = create("a", "hero-cta");
   cta.href = context.next ? `#${context.next.id}` : "#top";
-  cta.append(create("span", "", section.cta ?? "向下浏览"), create("span", "hero-cta-line"));
+  const dots = create("span", "hero-cta-dots");
+  dots.append(create("i"), create("i"), create("i"));
+  cta.append(create("span", "", section.cta ?? "向下浏览"), dots);
   element.append(inner, cta);
   return { element };
 }
@@ -231,91 +233,22 @@ function renderFigures(section) {
   return { element, init };
 }
 
-/* 03 综艺 IP：每个项目占一屏，滚动时幕布式分条揭开 */
+/* 03 综艺 IP：每张海报铺满一屏，标题压在海报底部 */
 function renderIp(section) {
   const element = createSection(section, "ip");
   const list = create("div", "ip-list");
-  const total = section.items.length;
-  const curtains = [];
 
-  section.items.forEach((item, i) => {
+  section.items.forEach((item) => {
     const card = create("figure", "ip-card");
-    const sticky = create("div", "ip-sticky");
-    const visual = create("div", "ip-visual");
-    const original = createImage(item.image, item.title, { className: "ip-original" });
-    const bands = create("div", "ip-bands");
-    const light = create("div", "ip-light");
-    const caption = create("figcaption", "ip-caption");
-    const ambient = createImage(item.image, "", { className: "ip-ambient" });
-
-    if (item.image.width && item.image.height) {
-      visual.style.aspectRatio = `${item.image.width} / ${item.image.height}`;
-    }
-    ambient.setAttribute("aria-hidden", "true");
-    bands.setAttribute("aria-hidden", "true");
-    light.setAttribute("aria-hidden", "true");
-    const strips = Array.from({ length: 10 }, () => {
-      const strip = create("div", "ip-band");
-      strip.append(createImage(item.image));
-      bands.append(strip);
-      return strip;
-    });
-
-    caption.append(create("span", "ip-count", `${pad(i + 1)} / ${pad(total)}`), create("span", "", item.title));
-    visual.append(original, bands, light);
-    sticky.append(ambient, visual, caption);
-    card.append(sticky);
+    card.append(createImage(item.image, item.title), create("figcaption", "ip-caption", item.title));
     list.append(card);
-    curtains.push({ card, visual, strips, light, progress: reducedMotion ? 1 : 0, target: reducedMotion ? 1 : 0 });
   });
 
   element.append(list);
-
-  const draw = (curtain) => {
-    const p = curtain.progress;
-    curtain.card.style.setProperty("--curtain", p.toFixed(4));
-    curtain.strips.forEach((strip, i) => {
-      const q = clamp((p - (i % 3) * 0.055) / 0.73);
-      const gap = 5 * (1 - q);
-      const top = i * 10;
-      strip.style.clipPath = `inset(${top + gap}% 0 ${100 - top - 10 + gap}% 0)`;
-    });
-    curtain.light.style.opacity = String(Math.sin(p * Math.PI) * 0.5);
-    curtain.light.style.transform = `translateX(${-120 + p * 240}%)`;
-  };
-
-  const init = () => {
-    let frame = 0;
-    const animate = () => {
-      frame = 0;
-      let moving = false;
-      curtains.forEach((curtain) => {
-        const delta = curtain.target - curtain.progress;
-        curtain.progress = Math.abs(delta) < 0.001 ? curtain.target : curtain.progress + delta * 0.16;
-        moving ||= Math.abs(delta) >= 0.001;
-        draw(curtain);
-      });
-      if (moving && !document.hidden) frame = requestAnimationFrame(animate);
-    };
-    const update = () => {
-      if (reducedMotion) return;
-      const viewport = window.innerHeight;
-      curtains.forEach((curtain) => {
-        curtain.target = clamp((viewport * 0.9 - curtain.card.getBoundingClientRect().top) / (viewport * 0.72));
-      });
-      if (!frame) frame = requestAnimationFrame(animate);
-    };
-
-    curtains.forEach(draw);
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
-  };
-
-  return { element, init };
+  return { element };
 }
 
-/* 04 演出现场：两行照片反向滚动，可手动滑动 */
+/* 04 现场照片：两行照片反向滚动，可手动滑动 */
 function renderScenes(section) {
   const element = createSection(section, "scenes");
   const rows = [
@@ -408,7 +341,7 @@ function renderScenes(section) {
   return { element, init };
 }
 
-/* 05 专场：一横排轮播，中间最大，向两侧依次变小 */
+/* 05 专场演出：一横排轮播，中间最大，向两侧依次变小 */
 const POSTER_GAP = 0.05;
 const POSTER_SLOTS = [1, 0.66, 0.44, 0.44].reduce((slots, scale, i) => {
   const previous = slots[i - 1];
@@ -420,8 +353,8 @@ function renderShows(section) {
   const element = createSection(section, "shows");
   const header = element.querySelector(".section-header");
   const controls = create("div", "shows-controls");
-  const previous = createArrowButton("left", "上一个专场");
-  const next = createArrowButton("right", "下一个专场");
+  const previous = createArrowButton("left", "上一个专场演出");
+  const next = createArrowButton("right", "下一个专场演出");
   const stage = create("div", "shows-stage");
   const caption = create("div", "shows-caption");
   const captionArtist = create("p", "shows-caption-artist");
@@ -775,12 +708,11 @@ const renderers = {
 
 /* 顶栏目录与当前版面 */
 function setupNavigation(sections, elements) {
-  const links = sections.map((section, i) => {
+  const links = sections.map((section) => {
     const item = create("li");
     const link = create("a");
     link.href = `#${section.id}`;
-    const label = section.type === "hero" ? "首页" : section.title;
-    link.append(create("span", "menu-index", pad(i + 1)), create("span", "", label));
+    link.append(create("span", "", section.type === "hero" ? "首页" : section.title));
     link.addEventListener("click", () => toggleMenu(false));
     item.append(link);
     menuList.append(item);
