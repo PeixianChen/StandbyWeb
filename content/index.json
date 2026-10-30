@@ -75,7 +75,6 @@
       "type": "scenes",
       "title": "现场照片",
       "subtitle": "On Stage",
-      "note": "触摸暂停，左右滑动浏览。",
       "items": [
         {
           "src": "content/04_scenes/000_喜人奇妙夜深圳站合影.webp",
@@ -260,7 +259,6 @@
       "type": "resources",
       "title": "合作资源",
       "subtitle": "Partners",
-      "note": "点按任意一块查看，标注“待补”的位置需换入正式素材。",
       "items": [
         {
           "title": "牛C马O述职",

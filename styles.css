@@ -901,26 +901,6 @@ img {
   text-wrap: balance;
 }
 
-.shows-meta {
-  margin: calc(var(--u) * 5) var(--pad) 0;
-  padding-top: calc(var(--u) * 3);
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: calc(var(--u) * 2.8);
-}
-
-.shows-count {
-  font-family: var(--latin);
-  letter-spacing: 0.2em;
-}
-
-.shows-hint {
-  font-family: var(--cjk);
-  letter-spacing: 0.08em;
-}
-
 /* 专场详情弹层（手机上为底部抽屉，宽屏为居中弹窗） */
 .show-dialog {
   width: 100%;
@@ -1282,12 +1262,6 @@ body:not(.is-loaded) .footer {
 
   .shows-stage {
     --poster-w: min(calc(var(--u) * 54), calc(var(--screen) * 0.42));
-  }
-
-  .shows-meta {
-    max-width: calc(var(--u) * 120);
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .show-dialog {

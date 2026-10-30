@@ -359,9 +359,6 @@ function renderShows(section) {
   const caption = create("div", "shows-caption");
   const captionArtist = create("p", "shows-caption-artist");
   const captionTitle = create("p", "shows-caption-title");
-  const meta = create("div", "shows-meta");
-  const count = create("span", "shows-count");
-  const hint = create("span", "shows-hint", "点击海报查看");
   const shows = section.items;
   const total = shows.length;
   let index = 0;
@@ -375,7 +372,6 @@ function renderShows(section) {
   stage.setAttribute("aria-label", `${section.title}轮播，可左右滑动`);
   caption.setAttribute("aria-live", "polite");
   caption.append(captionArtist, captionTitle);
-  meta.append(count, hint);
 
   const posters = shows.map((show, i) => {
     const button = create("button", "poster");
@@ -415,7 +411,6 @@ function renderShows(section) {
     });
     captionArtist.textContent = shows[index].artist;
     captionTitle.textContent = shows[index].title;
-    count.textContent = `${pad(index + 1)} / ${pad(total)}`;
   }
 
   const step = (direction, manual = true) => {
@@ -461,7 +456,7 @@ function renderShows(section) {
     true,
   );
 
-  element.append(reveal(stage), caption, meta);
+  element.append(reveal(stage), caption);
   setShow(0);
 
   const init = () => {
