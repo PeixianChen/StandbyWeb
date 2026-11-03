@@ -8,6 +8,8 @@ const menu = document.querySelector(".section-menu");
 const menuList = document.querySelector("[data-section-menu]");
 const currentTitleLabel = document.querySelector("[data-current-title]");
 const showDialog = document.querySelector(".show-dialog");
+const scriptVersion = document.currentScript ? new URL(document.currentScript.src).searchParams.get("v") : null;
+const versionQuery = scriptVersion ? `?v=${encodeURIComponent(scriptVersion)}` : "";
 
 const pad = (value) => String(value).padStart(2, "0");
 const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
@@ -41,7 +43,7 @@ function createArrowButton(direction, label) {
   return button;
 }
 
-function createImage(image, alt = "", { eager = false, className } = {}) {
+function createImage(image, alt = "", { eager = false, className, priority } = {}) {
   const element = create("img", className);
   element.src = assetUrl(image.src);
   element.alt = alt;
@@ -50,6 +52,7 @@ function createImage(image, alt = "", { eager = false, className } = {}) {
     element.height = image.height;
   }
   element.loading = eager ? "eager" : "lazy";
+  if (priority) element.fetchPriority = priority;
   element.decoding = "async";
   return element;
 }
@@ -114,14 +117,18 @@ function appendNote(element, section) {
 function renderHero(section, context) {
   const element = createSection(section, "hero");
   const inner = create("div", "hero-inner");
-  const logo = createImage(section.logo, "Stand:by 新的派", { eager: true, className: "hero-logo" });
+  const logo = createImage(section.logo, "Stand:by 新的派", {
+    eager: true,
+    className: "hero-logo",
+    priority: "high",
+  });
   inner.append(logo, create("h1", "hero-title", section.title));
   if (section.subtitle) inner.append(create("p", "hero-subtitle", section.subtitle));
 
   if (section.background) {
     const background = create("div", "hero-background");
     background.setAttribute("aria-hidden", "true");
-    background.append(createImage(section.background, "", { eager: true }));
+    background.append(createImage(section.background, "", { eager: true, priority: "high" }));
     element.append(background);
   }
 
@@ -761,7 +768,7 @@ showDialog.addEventListener("click", (event) => {
 
 async function renderPage() {
   try {
-    const response = await fetch("./content/index.json", { cache: "no-cache" });
+    const response = await fetch(`./content/index.json${versionQuery}`);
     if (!response.ok) throw new Error("无法读取 content/index.json，请先运行 node scripts/generate-indexes.mjs。");
     const { sections } = await response.json();
     const supported = sections.filter((section) => renderers[section.type]);
