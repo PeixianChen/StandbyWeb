@@ -55,17 +55,17 @@
         {
           "title": "《喜人奇妙夜》全国巡演",
           "image": {
-            "src": "content/03_ip/000_喜人奇妙夜/image.webp",
-            "width": 1200,
-            "height": 675
+            "src": "content/03_ip/000_喜人奇妙夜/image.jpg",
+            "width": 1280,
+            "height": 1810
           }
         },
         {
           "title": "《喜剧之王单口季》巡回演出",
           "image": {
-            "src": "content/03_ip/001_喜剧之王单口季/image.webp",
-            "width": 583,
-            "height": 328
+            "src": "content/03_ip/001_喜剧之王单口季/image.jpg",
+            "width": 1280,
+            "height": 1810
           }
         }
       ]

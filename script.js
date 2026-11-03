@@ -244,15 +244,45 @@ function renderFigures(section) {
 function renderIp(section) {
   const element = createSection(section, "ip");
   const list = create("div", "ip-list");
+  const cards = [];
 
   section.items.forEach((item) => {
     const card = create("figure", "ip-card");
-    card.append(createImage(item.image, item.title), create("figcaption", "ip-caption", item.title));
+    const top = create("span", "ip-half ip-half-top");
+    const bottom = create("span", "ip-half ip-half-bottom");
+    top.setAttribute("aria-hidden", "true");
+    bottom.setAttribute("aria-hidden", "true");
+    top.append(createImage(item.image));
+    bottom.append(createImage(item.image));
+    card.append(top, bottom, create("figcaption", "ip-caption", item.title));
     list.append(card);
+    cards.push(card);
   });
 
   element.append(list);
-  return { element };
+  const init = () => {
+    cards.forEach((card) => {
+      observeVisibility(card, 0.18, (isVisible) => {
+        if (!isVisible || card.dataset.entering !== undefined) return;
+        card.dataset.entering = "";
+        const images = [...card.querySelectorAll("img")];
+        images.forEach((image) => {
+          image.loading = "eager";
+        });
+        Promise.all(
+          images.map((image) =>
+            image.complete
+              ? image.decode().catch(() => {})
+              : new Promise((resolve) => {
+                  image.addEventListener("load", resolve, { once: true });
+                  image.addEventListener("error", resolve, { once: true });
+                }),
+          ),
+        ).then(() => requestAnimationFrame(() => card.classList.add("is-entered")));
+      });
+    });
+  };
+  return { element, init };
 }
 
 /* 04 现场照片：两行照片反向滚动，可手动滑动 */

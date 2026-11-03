@@ -707,17 +707,50 @@ img {
   background: var(--bg-raised);
 }
 
-.ip-card img {
+.ip-half {
   position: absolute;
-  inset: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 50%;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ip-half-top {
+  top: 0;
+  transform: translateY(-100%);
+}
+
+.ip-half-bottom {
+  bottom: 0;
+  transform: translateY(100%);
+}
+
+.ip-card.is-entered .ip-half {
+  transform: translateY(0);
+}
+
+.ip-half img {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 200%;
   object-fit: cover;
+}
+
+.ip-half-top img {
+  top: 0;
+}
+
+.ip-half-bottom img {
+  bottom: 0;
 }
 
 .ip-card::after {
   content: "";
   position: absolute;
+  z-index: 1;
   inset: 0;
   pointer-events: none;
   background: linear-gradient(180deg, transparent 62%, rgba(11, 11, 10, 0.85) 100%);
@@ -725,7 +758,7 @@ img {
 
 .ip-caption {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   left: var(--pad);
   right: var(--pad);
   bottom: calc(var(--u) * 10);
@@ -735,6 +768,16 @@ img {
   line-height: 1.5;
   text-align: center;
   text-wrap: balance;
+  opacity: 0;
+  transform: translateY(calc(var(--u) * 3));
+  transition:
+    opacity 0.45s ease 0.65s,
+    transform 0.45s ease 0.65s;
+}
+
+.ip-card.is-entered .ip-caption {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* 04 现场照片 */
@@ -1318,6 +1361,8 @@ body:not(.is-loaded) .footer {
   }
 
   .reveal,
+  .ip-half,
+  .ip-card .ip-caption,
   .figure:not(.is-active) > * {
     opacity: 1;
     transform: none;
