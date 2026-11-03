@@ -248,13 +248,15 @@ function renderIp(section) {
 
   section.items.forEach((item) => {
     const card = create("figure", "ip-card");
+    const visual = create("span", "ip-visual");
     const top = create("span", "ip-half ip-half-top");
     const bottom = create("span", "ip-half ip-half-bottom");
     top.setAttribute("aria-hidden", "true");
     bottom.setAttribute("aria-hidden", "true");
     top.append(createImage(item.image));
     bottom.append(createImage(item.image));
-    card.append(top, bottom, create("figcaption", "ip-caption", item.title));
+    visual.append(top, bottom);
+    card.append(visual, create("figcaption", "ip-caption", item.title));
     list.append(card);
     cards.push(card);
   });

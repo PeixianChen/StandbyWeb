@@ -700,9 +700,14 @@ img {
 }
 
 .ip-card {
-  position: relative;
-  height: var(--screen);
   margin: 0;
+  background: var(--bg);
+}
+
+.ip-visual {
+  position: relative;
+  display: block;
+  height: var(--screen);
   overflow: hidden;
   background: var(--bg-raised);
 }
@@ -747,21 +752,9 @@ img {
   bottom: 0;
 }
 
-.ip-card::after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent 62%, rgba(11, 11, 10, 0.85) 100%);
-}
-
 .ip-caption {
-  position: absolute;
-  z-index: 2;
-  left: var(--pad);
-  right: var(--pad);
-  bottom: calc(var(--u) * 10);
+  margin: 0;
+  padding: calc(var(--u) * 5) var(--pad) calc(var(--u) * 9);
   font-family: var(--cjk);
   font-size: calc(var(--u) * 5.4);
   font-weight: 600;
