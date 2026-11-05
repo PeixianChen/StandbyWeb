@@ -263,6 +263,37 @@ function renderIp(section) {
 
   element.append(list);
   const init = () => {
+    const pendingOpacityCards = new Set(cards);
+    let opacityFrame = 0;
+
+    const updateImageOpacity = () => {
+      opacityFrame = 0;
+      const viewportHeight = window.innerHeight;
+
+      pendingOpacityCards.forEach((card) => {
+        const visual = card.querySelector(".ip-visual");
+        const rect = visual.getBoundingClientRect();
+        const revealDistance = Math.min(rect.height, viewportHeight);
+        const progress = clamp((viewportHeight - rect.top) / revealDistance);
+        const opacity = reducedMotion ? 1 : 0.1 + progress * 0.9;
+
+        card.style.setProperty("--ip-image-opacity", opacity.toFixed(3));
+        if (progress >= 1 || reducedMotion) {
+          card.style.setProperty("--ip-image-opacity", "1");
+          pendingOpacityCards.delete(card);
+        }
+      });
+    };
+
+    const requestOpacityUpdate = () => {
+      if (opacityFrame || pendingOpacityCards.size === 0) return;
+      opacityFrame = requestAnimationFrame(updateImageOpacity);
+    };
+
+    window.addEventListener("scroll", requestOpacityUpdate, { passive: true });
+    window.addEventListener("resize", requestOpacityUpdate);
+    updateImageOpacity();
+
     cards.forEach((card) => {
       observeVisibility(card, 0.18, (isVisible) => {
         if (!isVisible || card.dataset.entering !== undefined) return;
