@@ -508,6 +508,39 @@ img {
   animation-name: dot-light-3;
 }
 
+@media (max-height: 680px) {
+  .hero {
+    min-height: var(--screen);
+    padding-top: calc(var(--topbar) + var(--u) * 4);
+    padding-bottom: max(calc(var(--u) * 5), env(safe-area-inset-bottom));
+    gap: clamp(20px, 5vh, 40px);
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-logo {
+    width: min(calc(var(--u) * 76), 60vh);
+  }
+
+  .hero-title {
+    margin-top: min(calc(var(--u) * 5), 4vh);
+  }
+
+  .hero-subtitle {
+    margin-top: min(calc(var(--u) * 2.4), 2.5vh);
+  }
+
+  .hero-cta {
+    position: static;
+    flex: none;
+    transform: none;
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
