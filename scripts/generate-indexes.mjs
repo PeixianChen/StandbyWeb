@@ -32,10 +32,10 @@ const schemas = {
     items: { text: { name: true, role: false, focus: false }, images: { photo: true } },
   },
   resources: {
-    items: { text: { title: true, note: false }, images: { image: false, logo: false } },
+    items: { text: { title: true }, images: { image: false, logo: false } },
   },
 };
-const defaultSectionText = { title: true, subtitle: false, note: false };
+const defaultSectionText = { title: true, subtitle: false };
 
 const toWebPath = (...segments) => ["content", ...segments].join("/");
 const isImage = (name) => imageExtensions.includes(extname(name).toLowerCase());

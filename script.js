@@ -109,10 +109,6 @@ function createSection(section, className) {
   return element;
 }
 
-function appendNote(element, section) {
-  if (section.note) element.append(reveal(create("p", "section-note", section.note)));
-}
-
 /* 01 首屏 */
 function renderHero(section, context) {
   const element = createSection(section, "hero");
@@ -249,13 +245,7 @@ function renderIp(section) {
   section.items.forEach((item) => {
     const card = create("figure", "ip-card");
     const visual = create("span", "ip-visual");
-    const top = create("span", "ip-half ip-half-top");
-    const bottom = create("span", "ip-half ip-half-bottom");
-    top.setAttribute("aria-hidden", "true");
-    bottom.setAttribute("aria-hidden", "true");
-    top.append(createImage(item.image));
-    bottom.append(createImage(item.image));
-    visual.append(top, bottom);
+    visual.append(createImage(item.image, "", { className: "ip-image" }));
     card.append(visual, create("figcaption", "ip-caption", item.title));
     list.append(card);
     cards.push(card);
@@ -275,7 +265,7 @@ function renderIp(section) {
         const rect = visual.getBoundingClientRect();
         const revealDistance = Math.min(rect.height, viewportHeight);
         const progress = clamp((viewportHeight - rect.top) / revealDistance);
-        const opacity = reducedMotion ? 1 : 0.1 + progress * 0.9;
+        const opacity = reducedMotion ? 1 : progress;
 
         card.style.setProperty("--ip-image-opacity", opacity.toFixed(3));
         if (progress >= 1 || reducedMotion) {
@@ -350,8 +340,6 @@ function renderScenes(section) {
     element.append(reveal(marquee));
     return { marquee, group: track.firstElementChild, speed: row.speed, position: 0, holdUntil: 0, touching: false };
   });
-
-  appendNote(element, section);
 
   const init = () => {
     let visible = false;
@@ -633,7 +621,6 @@ function renderArtists(section) {
 
   setActive(0);
   element.append(reveal(grid));
-  appendNote(element, section);
   return { element };
 }
 
@@ -699,14 +686,13 @@ function renderResources(section) {
   const tiles = items.map((item, i) => {
     const tile = create("button", `tile tile-${item.kind}`);
     tile.type = "button";
-    tile.setAttribute("aria-label", [item.title, item.note].filter(Boolean).join("，"));
+    tile.setAttribute("aria-label", item.title);
     if (item.kind === "photo") {
       tile.append(createImage(item.image, item.title), create("span", "tile-label", item.title));
     } else if (item.kind === "logo") {
       tile.append(createImage(item.logo, item.title));
     } else {
       tile.append(create("b", "", item.title));
-      if (item.note) tile.append(create("small", "", item.note));
     }
     tile.addEventListener("click", () => {
       holdUntil = Date.now() + 8000;
@@ -742,7 +728,6 @@ function renderResources(section) {
   }
 
   element.append(reveal(collage));
-  appendNote(element, section);
 
   const init = () => {
     let visible = false;

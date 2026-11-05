@@ -342,14 +342,6 @@ img {
   text-wrap: balance;
 }
 
-.section-note {
-  margin: calc(var(--u) * 6) 0 0;
-  color: var(--muted);
-  font-family: var(--cjk);
-  font-size: calc(var(--u) * 3);
-  line-height: 1.7;
-}
-
 .arrow-button {
   width: max(40px, calc(var(--u) * 10));
   height: max(40px, calc(var(--u) * 10));
@@ -712,45 +704,12 @@ img {
   background: var(--bg-raised);
 }
 
-.ip-half {
-  position: absolute;
-  left: 0;
+.ip-image {
   width: 100%;
-  height: 50%;
-  overflow: hidden;
-  opacity: var(--ip-image-opacity, 0.1);
-  will-change: transform, opacity;
-  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.ip-half-top {
-  top: 0;
-  transform: translateY(-100%);
-}
-
-.ip-half-bottom {
-  bottom: 0;
-  transform: translateY(100%);
-}
-
-.ip-card.is-entered .ip-half {
-  transform: translateY(0);
-}
-
-.ip-half img {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 200%;
+  height: 100%;
   object-fit: cover;
-}
-
-.ip-half-top img {
-  top: 0;
-}
-
-.ip-half-bottom img {
-  bottom: 0;
+  opacity: var(--ip-image-opacity, 0);
+  will-change: opacity;
 }
 
 .ip-caption {
@@ -780,8 +739,7 @@ img {
   padding-right: 0;
 }
 
-.scenes .section-header,
-.scenes .section-note {
+.scenes .section-header {
   padding: 0 var(--pad);
 }
 
@@ -1193,18 +1151,8 @@ body:has(.show-dialog[open]) {
   line-height: 1.3;
 }
 
-.tile-text small {
-  margin-top: calc(var(--u) * 1.2);
-  color: #6b6960;
-  font-size: calc(var(--u) * 2.3);
-}
-
 .tile-text.is-active b {
   font-size: calc(var(--u) * 5.2);
-}
-
-.tile-text.is-active small {
-  font-size: calc(var(--u) * 3);
 }
 
 /* 页脚 */
@@ -1355,7 +1303,7 @@ body:not(.is-loaded) .footer {
   }
 
   .reveal,
-  .ip-half,
+  .ip-image,
   .ip-card .ip-caption,
   .figure:not(.is-active) > * {
     opacity: 1;
