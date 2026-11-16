@@ -325,17 +325,7 @@ function renderIp(section) {
       observeVisibility(card, 0.18, (isVisible) => {
         if (!isVisible || card.dataset.entering !== undefined) return;
         card.dataset.entering = "";
-        const images = [...card.querySelectorAll("img")];
-        Promise.all(
-          images.map((image) =>
-            image.complete
-              ? image.decode().catch(() => {})
-              : new Promise((resolve) => {
-                  image.addEventListener("load", resolve, { once: true });
-                  image.addEventListener("error", resolve, { once: true });
-                }),
-          ),
-        ).then(() => requestAnimationFrame(() => card.classList.add("is-entered")));
+        requestAnimationFrame(() => card.classList.add("is-entered"));
       });
     });
   };

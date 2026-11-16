@@ -791,8 +791,8 @@ img {
   opacity: 0;
   transform: translateY(calc(var(--u) * 3));
   transition:
-    opacity 0.45s ease 0.65s,
-    transform 0.45s ease 0.65s;
+    opacity 0.35s ease 0.1s,
+    transform 0.35s ease 0.1s;
 }
 
 .ip-card.is-entered .ip-caption {
@@ -1294,6 +1294,24 @@ body:not(.is-loaded) .footer {
 
   .section-title {
     font-size: calc(var(--u) * 9.6);
+  }
+
+  .ip-card:nth-child(odd) .ip-image {
+    object-position: right center;
+  }
+
+  .ip-card:nth-child(odd) .ip-caption {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .ip-card:nth-child(even) .ip-image {
+    object-position: left center;
+  }
+
+  .ip-card:nth-child(even) .ip-caption {
+    justify-content: flex-end;
+    text-align: right;
   }
 
   .hero-logo {
