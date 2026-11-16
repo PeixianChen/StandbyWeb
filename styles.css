@@ -16,6 +16,8 @@
   --screen: 100vh;
   --pad: calc(var(--u) * 6.4);
   --topbar: calc(48px + env(safe-area-inset-top));
+  --menu-icon-size: 16px;
+  --menu-icon-gap: 8px;
 
   --bg: #0b0b0a;
   --bg-raised: #151512;
@@ -139,7 +141,7 @@ img {
 .topbar-menu {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--menu-icon-gap);
   height: 36px;
   padding: 0 0 0 12px;
   font-size: 12px;
@@ -155,7 +157,7 @@ img {
 
 .topbar-icon {
   position: relative;
-  width: 16px;
+  width: var(--menu-icon-size);
   height: 10px;
 }
 
@@ -725,7 +727,8 @@ img {
 }
 
 .ip-list {
-  padding: 0 24px;
+  padding-left: var(--pad);
+  padding-right: calc(var(--pad) + var(--menu-icon-gap) + var(--menu-icon-size));
   display: grid;
   grid-template-rows: repeat(2, auto);
   gap: clamp(18px, 5vw, 64px);
