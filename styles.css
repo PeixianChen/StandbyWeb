@@ -725,20 +725,22 @@ img {
 }
 
 .ip-list {
-  height: calc(var(--screen) * 2 / 3);
+  padding: 0 24px;
   display: grid;
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: calc(var(--u) * 5);
+  grid-template-rows: repeat(2, auto);
+  gap: clamp(18px, 5vw, 64px);
 }
 
 .ip-card {
   margin: 0;
-  height: 100%;
+  width: 100%;
+  height: auto;
   min-height: 0;
+  aspect-ratio: 1.414 / 1;
+  container-type: inline-size;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: minmax(0, 1fr);
-  overflow: hidden;
   background: var(--bg);
 }
 
@@ -751,6 +753,7 @@ img {
   min-width: 0;
   min-height: 0;
   padding: calc(var(--u) * 2);
+  padding: 2cqw;
   overflow: hidden;
   background: var(--bg);
 }
@@ -779,25 +782,23 @@ img {
   min-width: 0;
   min-height: 0;
   padding: var(--pad) calc(var(--u) * 2);
+  padding: 6cqw 2cqw;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--cjk);
   font-size: calc(var(--u) * 4.5);
+  font-size: 5cqw;
   font-weight: 600;
   line-height: 1.5;
   text-align: center;
   white-space: pre;
   opacity: 0;
-  transform: translateY(calc(var(--u) * 3));
-  transition:
-    opacity 0.35s ease 0.1s,
-    transform 0.35s ease 0.1s;
+  transition: opacity 0.35s ease 0.1s;
 }
 
 .ip-card.is-entered .ip-caption {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* 04 现场照片 */
