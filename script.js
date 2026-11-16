@@ -236,7 +236,7 @@ function renderFigures(section) {
   return { element, init };
 }
 
-/* 03 综艺 IP：海报与标题交错排列，透明度随滚动双向变化 */
+/* 03 综艺 IP：海报与标题交错排列，向下重新进入视口时再次渐强 */
 function renderIp(section) {
   const element = createSection(section, "ip");
   const list = create("div", "ip-list");
@@ -256,7 +256,7 @@ function renderIp(section) {
     let opacityFrame = 0;
     let lastScrollY = window.scrollY;
     let opacityReady = false;
-    const imageOpacities = new Map(cards.map((card) => [card, 0]));
+    const imageProgress = new Map(cards.map((card) => [card, 0]));
 
     const updateImageOpacity = () => {
       opacityFrame = 0;
@@ -268,20 +268,23 @@ function renderIp(section) {
         const visual = card.querySelector(".ip-visual");
         const rect = visual.getBoundingClientRect();
         const revealDistance = Math.min(rect.height, viewportHeight);
-        const progress = clamp((viewportHeight - rect.top) / revealDistance);
+        const entryProgress = clamp((viewportHeight - rect.top) / revealDistance);
         const isVisible = rect.bottom > 0 && rect.top < viewportHeight;
-        let opacity = imageOpacities.get(card);
+        let progress = imageProgress.get(card);
 
         if (reducedMotion) {
-          opacity = 1;
+          progress = 1;
         } else if (!opacityReady) {
-          opacity = progress ** 2;
-        } else if (isVisible && scrollDelta !== 0) {
-          const opacityDelta = scrollDelta / (revealDistance * 0.8);
-          opacity = clamp(opacity + opacityDelta);
+          progress = entryProgress;
+        } else if (isVisible && scrollDelta > 0) {
+          const progressDelta = scrollDelta / (revealDistance * 1.1);
+          progress = clamp(progress + progressDelta);
+        } else if (scrollDelta < 0 && rect.top >= viewportHeight) {
+          progress = 0;
         }
 
-        imageOpacities.set(card, opacity);
+        const opacity = reducedMotion ? 1 : progress ** 2.4;
+        imageProgress.set(card, progress);
         card.style.setProperty("--ip-image-opacity", opacity.toFixed(3));
       });
 
