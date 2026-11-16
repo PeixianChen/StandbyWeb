@@ -236,7 +236,7 @@ function renderFigures(section) {
   return { element, init };
 }
 
-/* 03 综艺 IP：每张海报铺满一屏，标题压在海报底部 */
+/* 03 综艺 IP：海报与标题交错排列，透明度随滚动双向变化 */
 function renderIp(section) {
   const element = createSection(section, "ip");
   const list = create("div", "ip-list");
@@ -253,30 +253,44 @@ function renderIp(section) {
 
   element.append(list);
   const init = () => {
-    const pendingOpacityCards = new Set(cards);
     let opacityFrame = 0;
+    let lastScrollY = window.scrollY;
+    let opacityReady = false;
+    const imageOpacities = new Map(cards.map((card) => [card, 0]));
 
     const updateImageOpacity = () => {
       opacityFrame = 0;
       const viewportHeight = window.innerHeight;
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY;
 
-      pendingOpacityCards.forEach((card) => {
+      cards.forEach((card) => {
         const visual = card.querySelector(".ip-visual");
         const rect = visual.getBoundingClientRect();
         const revealDistance = Math.min(rect.height, viewportHeight);
         const progress = clamp((viewportHeight - rect.top) / revealDistance);
-        const opacity = reducedMotion ? 1 : progress;
+        const isVisible = rect.bottom > 0 && rect.top < viewportHeight;
+        let opacity = imageOpacities.get(card);
 
-        card.style.setProperty("--ip-image-opacity", opacity.toFixed(3));
-        if (progress >= 1 || reducedMotion) {
-          card.style.setProperty("--ip-image-opacity", "1");
-          pendingOpacityCards.delete(card);
+        if (reducedMotion) {
+          opacity = 1;
+        } else if (!opacityReady) {
+          opacity = progress ** 2;
+        } else if (isVisible && scrollDelta !== 0) {
+          const opacityDelta = scrollDelta / (revealDistance * 0.8);
+          opacity = clamp(opacity + opacityDelta);
         }
+
+        imageOpacities.set(card, opacity);
+        card.style.setProperty("--ip-image-opacity", opacity.toFixed(3));
       });
+
+      lastScrollY = currentScrollY;
+      opacityReady = true;
     };
 
     const requestOpacityUpdate = () => {
-      if (opacityFrame || pendingOpacityCards.size === 0) return;
+      if (opacityFrame) return;
       opacityFrame = requestAnimationFrame(updateImageOpacity);
     };
 

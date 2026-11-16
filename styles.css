@@ -724,9 +724,16 @@ img {
   padding: 0 var(--pad);
 }
 
+.ip-list {
+  height: calc(var(--screen) * 2 / 3);
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--u) * 5);
+}
+
 .ip-card {
   margin: 0;
-  min-height: var(--screen);
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   background: var(--bg);
@@ -735,9 +742,10 @@ img {
 .ip-visual {
   position: relative;
   display: block;
-  height: var(--screen);
+  min-height: 0;
+  padding: calc(var(--u) * 2);
   overflow: hidden;
-  background: var(--bg-raised);
+  background: var(--bg);
 }
 
 .ip-card:nth-child(even) .ip-visual {
@@ -752,23 +760,23 @@ img {
 .ip-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   opacity: var(--ip-image-opacity, 0);
   will-change: opacity;
 }
 
 .ip-caption {
   margin: 0;
-  padding: var(--pad);
+  padding: var(--pad) calc(var(--u) * 2);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--cjk);
-  font-size: calc(var(--u) * 5.4);
+  font-size: calc(var(--u) * 4.5);
   font-weight: 600;
   line-height: 1.5;
   text-align: center;
-  text-wrap: balance;
+  white-space: pre;
   opacity: 0;
   transform: translateY(calc(var(--u) * 3));
   transition:
