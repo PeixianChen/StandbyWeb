@@ -726,6 +726,9 @@ img {
 
 .ip-card {
   margin: 0;
+  min-height: var(--screen);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   background: var(--bg);
 }
 
@@ -735,6 +738,15 @@ img {
   height: var(--screen);
   overflow: hidden;
   background: var(--bg-raised);
+}
+
+.ip-card:nth-child(even) .ip-visual {
+  grid-column: 2;
+}
+
+.ip-card:nth-child(even) .ip-caption {
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .ip-image {
@@ -747,7 +759,10 @@ img {
 
 .ip-caption {
   margin: 0;
-  padding: calc(var(--u) * 5) var(--pad) calc(var(--u) * 9);
+  padding: var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--cjk);
   font-size: calc(var(--u) * 5.4);
   font-weight: 600;
