@@ -1372,6 +1372,26 @@ body:not(.is-loaded) .footer {
   }
 }
 
+@media (orientation: landscape) and (max-height: 600px) {
+  .ip {
+    padding-top: calc(var(--u) * 2);
+  }
+
+  .ip .section-header {
+    margin-bottom: calc(var(--u) * 2);
+  }
+
+  .ip .section-eyebrow {
+    margin-bottom: var(--u);
+    font-size: calc(var(--u) * 2.2);
+  }
+
+  .ip .section-title {
+    font-size: calc(var(--u) * 5);
+    line-height: 1.05;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
