@@ -277,7 +277,7 @@ function renderIp(section) {
         } else if (!opacityReady) {
           progress = entryProgress;
         } else if (isVisible && scrollDelta > 0) {
-          const progressDelta = scrollDelta / (revealDistance * 1.1);
+          const progressDelta = scrollDelta / (revealDistance * 0.75);
           progress = clamp(progress + progressDelta);
         } else if (scrollDelta < 0 && rect.top >= viewportHeight) {
           progress = 0;
@@ -301,14 +301,31 @@ function renderIp(section) {
     window.addEventListener("resize", requestOpacityUpdate);
     updateImageOpacity();
 
+    const preloadImages = () => {
+      cards.forEach((card) => {
+        card.querySelector(".ip-image").loading = "eager";
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      const nearby = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          nearby.disconnect();
+          preloadImages();
+        },
+        { rootMargin: "800px 0px" },
+      );
+      nearby.observe(list);
+    } else {
+      preloadImages();
+    }
+
     cards.forEach((card) => {
       observeVisibility(card, 0.18, (isVisible) => {
         if (!isVisible || card.dataset.entering !== undefined) return;
         card.dataset.entering = "";
         const images = [...card.querySelectorAll("img")];
-        images.forEach((image) => {
-          image.loading = "eager";
-        });
         Promise.all(
           images.map((image) =>
             image.complete
